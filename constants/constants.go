@@ -1,0 +1,8 @@
+package constants
+
+const (
+	ApiKey    = "P-ACHWZDFT1fs9nIFfwtM4yg1ze2b0gOUE"
+	UrlTable  = "https://api.admin.u-code.io/v1/table"
+	UrlModule = "https://api.admin.u-code.io/v1/menu"
+	Token     = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfcGxhdGZvcm1faWQiOiIiLCJjbGllbnRfdHlwZV9pZCI6IjE0MmU5ZDBiLWQ5ZDMtNGY3MS1iZGUxLTVmMWRiZDcwZTgzZCIsImRhdGEiOiJhZGRpdGlvbmFsIGpzb24gZGF0YSIsImV4cCI6MTcwMTY3Nzg1NiwiaWF0IjoxNzAxNTkxNDU2LCJpZCI6Ijc3MWNlODg2LWVkN2MtNGQwNi1iM2MyLWM3MzYzMzFmYmNlMiIsImlwIjoiYWRkaXRpb25hbCBqc29uIGRhdGEiLCJsb2dpbl90YWJsZV9zbHVnIjoidXNlciIsInByb2plY3RfaWQiOiI3MDZlMjZiMC1jMzNmLTQ4OTUtODRhNS01ZGUzNjAwZDViODIiLCJyb2xlX2lkIjoiMzMwMzYwYjItN2FjNi00NzliLThiNjgtYzM1YzE2NDRiYzIzIiwidGFibGVzIjpbXSwidXNlcl9pZCI6IjZjYmM4YTM2LWY4YTYtNDQzMC1hZDIxLWU5ODA4ZGZkN2ZlOSJ9.qYfetR1sh2uveqnB31IA7fggTcWuhbwMfquth00qX1k"
+)
