@@ -14,7 +14,7 @@ func CleaningFields(input []string) []string {
 	var result []string
 
 	for _, str := range input {
-		if len(str) > 3 || str == "guid" {
+		if len(str) > 1 || str == "guid" {
 
 			str = strings.ReplaceAll(str, `"`, "")
 			str = strings.ReplaceAll(str, `,`, "")

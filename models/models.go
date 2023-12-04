@@ -16,5 +16,5 @@ type Table struct {
 }
 
 type AllTable struct {
-	Tables []*Table `json:"tables"`
+	Tables []Table `json:"tables"`
 }

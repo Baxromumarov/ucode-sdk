@@ -6,7 +6,7 @@ CREATE TABLE "sdk-module.sdk_table" (
 CREATE TABLE "sdk_product" (
   "guid" uuid PRIMARY KEY,
   "product_name" varchar,
-  "sdk_table_id" uuid
+  "sdk_table_id.balance" uuid
 );
 
 

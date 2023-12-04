@@ -12,7 +12,7 @@ import (
 
 // !NOTE app_id ---> module_id
 func CreateTable(tableName string, moduleID string) string {
-	fmt.Println("modul id>>> ", moduleID)
+	// fmt.Println("modul id>>> ", moduleID)
 	// ! create table body
 	createTableBody := fmt.Sprintf(`{
 			"show_in_menu": true,
@@ -60,7 +60,7 @@ func CreateTable(tableName string, moduleID string) string {
 	}
 	var responseTable models.CreateResponse
 	json.Unmarshal(respCreateTable, &responseTable)
-	fmt.Println("Table created successfully", responseTable.Data.ID)
+	// fmt.Println("Table created successfully", responseTable.Data.ID)
 
 	addTableToModule := fmt.Sprintf(`
 		{
@@ -85,11 +85,11 @@ func CreateTable(tableName string, moduleID string) string {
 		tableName,
 	)
 
-	respAddTable, err := helper.DoRequest(constants.UrlModule, "POST", addTableToModule)
+	_, err = helper.DoRequest(constants.UrlModule, "POST", addTableToModule)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Add table response>> ", string(respAddTable))
+	// fmt.Println("Add table response>> ", string(respAddTable))
 	return responseTable.Data.ID
 }

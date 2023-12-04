@@ -34,8 +34,22 @@ func main() {
 		}
 		tables = models.AllTable{}
 	)
+
 	for scanner.Scan() {
 		line := scanner.Text()
+
+		if strings.Contains(line, ");") {
+			fmt.Println("true case")
+			creata_data.CreateFields(table)
+			tables.Tables = append(tables.Tables, table)
+			table = models.Table{
+				Fields: make(map[string]string),
+			}
+		}
+
+		if strings.Contains(line, "ALTER") {
+			break
+		}
 
 		if strings.Contains(line, "CREATE TABLE") {
 			tableName := getTableName(line)
@@ -54,19 +68,14 @@ func main() {
 		if len(splitedRow) == 1 {
 			continue
 		}
-
+		fmt.Println("line before cleaning", line)
 		finalRow := helper.CleaningFields(splitedRow)
-		fmt.Println("final row: ", finalRow)
+		// fmt.Println("final row: ", finalRow)
 		table.Fields[finalRow[0]] = finalRow[1]
 		// [balance float]
-		if strings.Contains(line, ");") {
-			creata_data.CreateFields(table)
-			tables.Tables = append(tables.Tables, &table)
-
-		}
 
 	}
-	fmt.Println(table)
+	// fmt.Println(table)
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading file:", err)

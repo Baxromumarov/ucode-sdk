@@ -11,12 +11,13 @@ import (
 )
 
 func CreateFields(table models.Table) {
-	fmt.Println(table.Fields)
+	fmt.Println("TABLE ID", table.ID)
 	// ! create field for single line
 	for fieldSlug, fieldType := range table.Fields {
-		// if fieldType == "uuid"{
-		// 	createRelation
-		// }
+		if fieldType == "uuid" {
+			continue
+		}
+		fmt.Println("field NAME: ", fieldSlug, "TYPE: ", fieldType)
 
 		if strings.Contains(fieldType, "varchar") || strings.Contains(fieldType, "string") {
 			createSingleLineFieldBody := fmt.Sprintf(`{
