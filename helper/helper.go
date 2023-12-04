@@ -10,32 +10,22 @@ import (
 	"github.com/baxromumarov/ucode-sdk/constants"
 )
 
-func CleaningRow(input []string) []string {
+func CleaningFields(input []string) []string {
 	var result []string
 
 	for _, str := range input {
 		if len(str) > 4 {
-			// if strings.Contains(str, ".") && !strings.Contains(str, "id") {
-			// 	splitedStr := strings.Split(str, ".")
-			// 	moduleName := splitedStr[0]
-			// 	moduleName = strings.ReplaceAll(moduleName, `"`, "")
 
-			// 	tableName := splitedStr[1]
-			// 	str = strings.ReplaceAll(tableName, `"`, "")
-
-			// 	fmt.Println(moduleName, tableName)
-
-			// } else {
 			str = strings.ReplaceAll(str, `"`, "")
 			str = strings.ReplaceAll(str, `,`, "")
 
-			// }
 			result = append(result, str)
 		}
 	}
 
 	return result
 }
+
 func DoRequest(url string, method string, body string) ([]byte, error) {
 
 	request, err := http.NewRequest(method, url, bytes.NewBuffer([]byte(body)))

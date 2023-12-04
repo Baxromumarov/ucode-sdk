@@ -25,13 +25,16 @@ func main() {
 	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
+
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		var fieldMap = map[string]string{}
-
 		if strings.Contains(line, "CREATE TABLE") {
 			tableName := getTableName(line)
+
+			//! create a new table
+			creata_data.CreateTable(tableName, moduleID)
+
 			fmt.Println("TABLE NAME:   ", tableName)
 			continue
 		}
@@ -40,8 +43,8 @@ func main() {
 		if len(splitedRow) == 1 {
 			continue
 		}
-		finalRow := helper.CleaningRow(splitedRow)
-		fmt.Println("final row: ", finalRow, fieldMap)
+		finalRow := helper.CleaningFields(splitedRow)
+		fmt.Println("final row: ", finalRow)
 
 	}
 
@@ -55,11 +58,13 @@ func getTableName(line string) string {
 	line = strings.ReplaceAll(line, ` `, "")
 	line = strings.ReplaceAll(line, `"`, "")
 	line = strings.ReplaceAll(line, `(`, "")
+
 	row := strings.Split(line, ".")
+
 	if len(row) == 1 {
 		return row[0]
 	} else {
-		// Create module
+		// ! Create module
 		moduleID = creata_data.CreateModule(row[0])
 		return row[1]
 	}

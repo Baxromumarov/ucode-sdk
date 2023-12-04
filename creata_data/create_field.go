@@ -1,6 +1,6 @@
 package creata_data
 
-func createFieldForTable() {
+func CreateFieldForTable() {
 	// ! create field for single line
 	/*
 	createSingleLineFieldBody := `{

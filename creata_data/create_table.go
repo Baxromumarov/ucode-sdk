@@ -11,7 +11,7 @@ import (
 )
 
 // !NOTE app_id ---> module_id
-func createTable(tableName string) {
+func CreateTable(tableName string, moduleID string) {
 	// ! create table body
 	createTableBody := fmt.Sprintf(`{
 			"show_in_menu": true,
