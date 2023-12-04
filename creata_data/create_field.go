@@ -11,6 +11,7 @@ import (
 )
 
 func CreateFields(table models.Table) {
+	fmt.Println(table.Fields)
 	// ! create field for single line
 	for fieldSlug, fieldType := range table.Fields {
 		// if fieldType == "uuid"{
@@ -36,8 +37,7 @@ func CreateFields(table models.Table) {
 			    	"slug": "%s",
 			    	"table_id": "%s",
 			    	"type": "SINGLE_LINE",
-			    	"enable_multilanguage": false,
-			    	"id": "d8a11b50-baf4-4749-bf13-3a5bed72de14"
+			    	"enable_multilanguage": false
 				}`,
 				fieldSlug, // label_en
 				fieldSlug, // label_ru
@@ -70,8 +70,7 @@ func CreateFields(table models.Table) {
 					"required": false,
 					"slug": "%s",
 					"table_id": "%s",
-					"type": "FLOAT",
-					"id": "0b15c00f-8222-4c30-9f76-c66ba9ff622b"
+					"type": "FLOAT"
 				}`,
 				fieldSlug, // label_en
 				fieldSlug, // label_ru
