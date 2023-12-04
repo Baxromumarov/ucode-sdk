@@ -1,4 +1,4 @@
-package main
+package creata_data
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 
 	"github.com/baxromumarov/ucode-sdk/constants"
 	"github.com/baxromumarov/ucode-sdk/helper"
+	"github.com/baxromumarov/ucode-sdk/models"
 )
 
 func CreateModule(moduleName string) string {
@@ -33,7 +34,7 @@ func CreateModule(moduleName string) string {
 
 		log.Fatal(err)
 	}
-	var responseModule CreateResponse
+	var responseModule models.CreateResponse
 	json.Unmarshal(respCreateModule, &responseModule)
 	fmt.Println("Table created successfully", responseModule.Data.ID)
 	return responseModule.Data.ID

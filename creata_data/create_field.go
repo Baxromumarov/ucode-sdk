@@ -1,4 +1,4 @@
-package main
+package creata_data
 
 func createFieldForTable() {
 	// ! create field for single line

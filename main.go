@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/baxromumarov/ucode-sdk/creata_data"
 	"github.com/baxromumarov/ucode-sdk/helper"
 )
 
@@ -59,7 +60,7 @@ func getTableName(line string) string {
 		return row[0]
 	} else {
 		// Create module
-		moduleID = CreateModule(row[0])
+		moduleID = creata_data.CreateModule(row[0])
 		return row[1]
 	}
 
@@ -135,11 +136,11 @@ func getTableName(line string) string {
 // 	return respByte, nil
 // }
 
-type CreateResponse struct {
-	Status      string `json:"status"`
-	Description string `json:"description"`
-	Data        struct {
-		ID string `json:"id"`
-	} `json:"data"`
-	CustomMessage string `json:"custom_message"`
-}
+// type CreateResponse struct {
+// 	Status      string `json:"status"`
+// 	Description string `json:"description"`
+// 	Data        struct {
+// 		ID string `json:"id"`
+// 	} `json:"data"`
+// 	CustomMessage string `json:"custom_message"`
+// }
