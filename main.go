@@ -8,10 +8,12 @@ import (
 
 	"github.com/baxromumarov/ucode-sdk/creata_data"
 	"github.com/baxromumarov/ucode-sdk/helper"
+	"github.com/baxromumarov/ucode-sdk/models"
 )
 
 var (
 	moduleID = ""
+	tableID  = ""
 )
 
 func main() {
@@ -26,6 +28,12 @@ func main() {
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 
+	var (
+		table = models.Table{
+			Fields: make(map[string]string),
+		}
+		tables = models.AllTable{}
+	)
 	for scanner.Scan() {
 		line := scanner.Text()
 
@@ -33,7 +41,10 @@ func main() {
 			tableName := getTableName(line)
 
 			//! create a new table
-			creata_data.CreateTable(tableName, moduleID)
+			tableID = creata_data.CreateTable(tableName, moduleID)
+
+			table.ID = tableID
+			table.Name = tableName
 
 			fmt.Println("TABLE NAME:   ", tableName)
 			continue
@@ -43,10 +54,19 @@ func main() {
 		if len(splitedRow) == 1 {
 			continue
 		}
+
 		finalRow := helper.CleaningFields(splitedRow)
 		fmt.Println("final row: ", finalRow)
+		table.Fields[finalRow[0]] = finalRow[1]
+		// [balance float]
+		if strings.Contains(line, ");") {
+			creata_data.CreateFields(table)
+			tables.Tables = append(tables.Tables, &table)
+
+		}
 
 	}
+	fmt.Println(table)
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading file:", err)

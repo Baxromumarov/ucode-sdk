@@ -10,6 +10,7 @@ type CreateResponse struct {
 }
 
 type Table struct {
+	ID     string            `json:"id"`
 	Name   string            `json:"name"`
 	Fields map[string]string `json:"fields"`
 }

@@ -36,6 +36,6 @@ func CreateModule(moduleName string) string {
 	}
 	var responseModule models.CreateResponse
 	json.Unmarshal(respCreateModule, &responseModule)
-	fmt.Println("Table created successfully", responseModule.Data.ID)
+	fmt.Println("Module created successfully", responseModule.Data.ID)
 	return responseModule.Data.ID
 }

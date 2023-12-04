@@ -1,4 +1,4 @@
-CREATE TABLE "skd-module.sdk_table" (
+CREATE TABLE "sdk-module.sdk_table" (
   "guid" uuid PRIMARY KEY,
   "balance" float
 );

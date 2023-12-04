@@ -1,0 +1,19 @@
+{
+    "parent_id": "dfe6eb02-e3de-4c03-b12c-4636644fce38",
+    "type": "TABLE",
+    "table_id": "e6437617-26b8-42de-8a69-bc28b64bf602",
+    "label": "new",
+    "attributes": {
+        "label_en": "new",
+        "label_ru": "new",
+        "label_uz": "new",
+        "description_en": "",
+        "description_ru": "",
+        "description_uz": ""
+    },
+    "icon": "bear-toy.svg"
+}
+
+
+
+// https://api.admin.u-code.io/v1/menu?project-id=706e26b0-c33f-4895-84a5-5de3600d5b82

@@ -11,12 +11,13 @@ import (
 )
 
 // !NOTE app_id ---> module_id
-func CreateTable(tableName string, moduleID string) {
+func CreateTable(tableName string, moduleID string) string {
+	fmt.Println("modul id>>> ", moduleID)
 	// ! create table body
 	createTableBody := fmt.Sprintf(`{
 			"show_in_menu": true,
 			"fields": [],
-			"app_id": "29a8af0c-7582-419a-b12f-53cc9e567564",
+			"app_id": "%s",
 			"summary_section": {
 				"id": "667045d2-0958-4f75-8cfb-f535ceecf0ac",
 				"label": "Summary",
@@ -45,13 +46,13 @@ func CreateTable(tableName string, moduleID string) {
 			"order_by": false,
 			"layoutRelations": []
 		}`,
+		moduleID,  // app_id
 		tableName, // label
 		tableName, // slug
 		tableName, // label_en
 		tableName, // label_ru
 		tableName, // label_uz
 	)
-
 	respCreateTable, err := helper.DoRequest(constants.UrlTable, "POST", createTableBody)
 	if err != nil {
 
@@ -61,4 +62,34 @@ func CreateTable(tableName string, moduleID string) {
 	json.Unmarshal(respCreateTable, &responseTable)
 	fmt.Println("Table created successfully", responseTable.Data.ID)
 
+	addTableToModule := fmt.Sprintf(`
+		{
+			"parent_id": "%s",
+			"type": "TABLE",
+			"table_id": "%s",
+			"label": "new",
+			"attributes": {
+				"label_en": "%s",
+				"label_ru": "%s",
+				"label_uz": "%s",
+				"description_en": "",
+				"description_ru": "",
+				"description_uz": ""
+			},
+			"icon": "bear-toy.svg"
+		}`,
+		moduleID,
+		responseTable.Data.ID,
+		tableName,
+		tableName,
+		tableName,
+	)
+
+	respAddTable, err := helper.DoRequest(constants.UrlModule, "POST", addTableToModule)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Add table response>> ", string(respAddTable))
+	return responseTable.Data.ID
 }
