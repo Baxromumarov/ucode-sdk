@@ -55,11 +55,13 @@ func CreateTable(tableName string, moduleID string) string {
 	)
 	respCreateTable, err := helper.DoRequest(constants.UrlTable, "POST", createTableBody)
 	if err != nil {
-
 		log.Fatal(err)
 	}
 	var responseTable models.CreateResponse
-	json.Unmarshal(respCreateTable, &responseTable)
+	err = json.Unmarshal(respCreateTable, &responseTable)
+	if err != nil {
+		log.Fatal("eror while unmarshalling", err)
+	}
 	// fmt.Println("Table created successfully", responseTable.Data.ID)
 
 	addTableToModule := fmt.Sprintf(`

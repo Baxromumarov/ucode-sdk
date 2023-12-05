@@ -13,12 +13,9 @@ type Table struct {
 	ID        string            `json:"id"`
 	Name      string            `json:"name"`
 	FieldType map[string]string `json:"field_type"` // [field_name] = field_type
-	FieldID   map[string]string `json:"field_id"`   // [field_name] = field_id
 }
 
-type AllTable struct {
-	Tables []Table `json:"tables"`
-}
+
 
 type FieldResponse struct {
 	Status      string `json:"status"`
@@ -26,6 +23,5 @@ type FieldResponse struct {
 	Data        struct {
 		Fields []map[string]interface {
 		} `json:"fields"`
-		Count int `json:"count"`
 	}
 }

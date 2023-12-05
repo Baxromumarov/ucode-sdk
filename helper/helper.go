@@ -10,6 +10,7 @@ import (
 	"github.com/baxromumarov/ucode-sdk/constants"
 )
 
+
 func CleaningFields(input []string) []string {
 	var result []string
 

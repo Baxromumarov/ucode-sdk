@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/baxromumarov/ucode-sdk/create_data"
 	"github.com/baxromumarov/ucode-sdk/helper"
@@ -14,7 +15,7 @@ import (
 
 var (
 	moduleID = ""
-	tableID  = ""
+	// tableID  = ""
 )
 
 func main() {
@@ -32,9 +33,7 @@ func main() {
 	var (
 		table = models.Table{
 			FieldType: make(map[string]string),
-			FieldID:   make(map[string]string),
 		}
-		tables    = models.AllTable{}
 		allTables = map[string]string{}
 	)
 
@@ -42,13 +41,10 @@ func main() {
 		line := scanner.Text()
 
 		if strings.Contains(line, ");") && strings.Contains(line, "ALTER") {
-			create_data.CreateFields(&table, allTables)
-
-			tables.Tables = append(tables.Tables, table)
-
+			create_data.CreateFields(table, allTables)
+			time.Sleep(time.Second)
 			table = models.Table{
-				FieldType: make(map[string]string),
-				FieldID:   make(map[string]string),
+				FieldType: map[string]string{},
 			}
 		}
 
@@ -60,15 +56,15 @@ func main() {
 			tableName := getTableName(line)
 
 			//! create a new table
-			tableID = create_data.CreateTable(tableName, moduleID)
+			tableID := create_data.CreateTable(tableName, moduleID)
+			fmt.Println("TABLEID, TABLE NAME: ", tableName, tableID)
 
 			table.ID = tableID
 			table.Name = tableName
 			allTables[tableName] = tableID
-
 			continue
 		}
-
+		fmt.Println("SPLITED")
 		splitedRow := strings.Split(line, " ")
 		if len(splitedRow) == 1 {
 			continue
