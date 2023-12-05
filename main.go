@@ -18,7 +18,7 @@ var (
 
 func main() {
 
-	filePath := "/Users/macbookpro/go/src/github.com/baxromumarov/ucode-sdk/sdk-ucode.sql"
+	filePath := "./sdk-ucode.sql"
 
 	file, err := os.Open(filePath)
 	if err != nil {

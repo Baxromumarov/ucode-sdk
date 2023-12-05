@@ -18,3 +18,13 @@ type Table struct {
 type AllTable struct {
 	Tables []*Table `json:"tables"`
 }
+
+type FieldResponse struct {
+	Status      string `json:"status"`
+	Description string `json:"description"`
+	Data        struct {
+		Fields []map[string]interface {
+		} `json:"fields"`
+		Count int `json:"count"`
+	}
+}

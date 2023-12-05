@@ -1,0 +1,25 @@
+{
+    "table_from": "test_relation_table",
+    "auto_filters": [],
+    "action_relations": [],
+    "attributes": {
+      "title_en": "user",
+      "title_ru": "user",
+      "title_uz": "user",
+      "multiple_input": false
+    },
+    "table_to": "user",
+    "type": "Many2One",
+    "default_limit": "",
+    "multiple_insert": false,
+    "filtersList": [],
+    "columnsList": [],
+    "view_fields": [
+      "436a4e74-f681-44fc-bd6c-9d0ead90053b"
+    ],
+    "relation_table_slug": "test_relation_table",
+    "columns": [],
+    "quick_filters": [],
+    "default_values": [],
+    "title": "user"
+  }

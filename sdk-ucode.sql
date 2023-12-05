@@ -1,13 +1,16 @@
-CREATE TABLE "sdk-module.sdk_table" (
+CREATE TABLE "test_sdk.test_hatsker" (
   "guid" uuid PRIMARY KEY,
-  "balance" float
+  "balance" varchar
 );
 
-CREATE TABLE "sdk_product" (
+CREATE TABLE "hatsker_cars" (
   "guid" uuid PRIMARY KEY,
-  "product_name" varchar,
-  "sdk_table_id" uuid
+  "car_name" varchar
+);
+
+CREATE TABLE "hatsker_product" (
+  "guid" uuid PRIMARY KEY,
+  "product_name" varchar
 );
 
 
-ALTER TABLE "sdk_product" ADD FOREIGN KEY ("sdk_table_id") REFERENCES "sdk_table" ("guid");
