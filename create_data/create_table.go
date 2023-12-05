@@ -60,6 +60,7 @@ func CreateTable(tableName string, moduleID string) string {
 	var responseTable models.CreateResponse
 	err = json.Unmarshal(respCreateTable, &responseTable)
 	if err != nil {
+		fmt.Println(string(respCreateTable))
 		log.Fatal("eror while unmarshalling", err)
 	}
 	// fmt.Println("Table created successfully", responseTable.Data.ID)

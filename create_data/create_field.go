@@ -13,7 +13,7 @@ import (
 )
 
 func CreateFields(table models.Table, allTables map[string]string) {
-	fmt.Println("<><><><><><><><><><><><><")
+
 	// ! create field for single line
 	for fieldSlug, fieldType := range table.FieldType {
 

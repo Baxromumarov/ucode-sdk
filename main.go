@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/baxromumarov/ucode-sdk/create_data"
 	"github.com/baxromumarov/ucode-sdk/helper"
@@ -40,9 +39,9 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		if strings.Contains(line, ");") && strings.Contains(line, "ALTER") {
+		if strings.Contains(line, ");") {
 			create_data.CreateFields(table, allTables)
-			time.Sleep(time.Second)
+			// time.Sleep(time.Second)
 			table = models.Table{
 				FieldType: map[string]string{},
 			}
@@ -64,8 +63,8 @@ func main() {
 			allTables[tableName] = tableID
 			continue
 		}
-		fmt.Println("SPLITED")
 		splitedRow := strings.Split(line, " ")
+
 		if len(splitedRow) == 1 {
 			continue
 		}
