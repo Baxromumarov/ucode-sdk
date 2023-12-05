@@ -10,9 +10,10 @@ type CreateResponse struct {
 }
 
 type Table struct {
-	ID     string            `json:"id"`
-	Name   string            `json:"name"`
-	Fields map[string]string `json:"fields"`
+	ID        string            `json:"id"`
+	Name      string            `json:"name"`
+	FieldType map[string]string `json:"field_type"` // [field_name] = field_type
+	FieldID   map[string]string `json:"field_id"`   // [field_name] = field_id
 }
 
 type AllTable struct {

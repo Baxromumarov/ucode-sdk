@@ -1,6 +1,7 @@
-package creata_data
+package create_data
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -10,14 +11,12 @@ import (
 	"github.com/baxromumarov/ucode-sdk/models"
 )
 
-func CreateFields(table models.Table) {
-	fmt.Println("TABLE ID", table.ID)
+func CreateFields(table *models.Table) models.Table {
 	// ! create field for single line
-	for fieldSlug, fieldType := range table.Fields {
+	for fieldSlug, fieldType := range table.FieldType {
 		if fieldType == "uuid" {
 			continue
 		}
-		fmt.Println("field NAME: ", fieldSlug, "TYPE: ", fieldType)
 
 		if strings.Contains(fieldType, "varchar") || strings.Contains(fieldType, "string") {
 			createSingleLineFieldBody := fmt.Sprintf(`{
@@ -51,7 +50,11 @@ func CreateFields(table models.Table) {
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Println("Single Line field created successfully", string(respCreateSingleLine))
+
+			var responseField models.CreateResponse
+			json.Unmarshal(respCreateSingleLine, &responseField)
+			table.FieldID[fieldSlug] = responseField.Data.ID
+			// os.Exit(1)
 
 		} else if strings.Contains(fieldType, "float") || strings.Contains(fieldType, "number") || strings.Contains(fieldType, "int") || strings.Contains(fieldType, "integer") {
 			createFloatFieldBody := fmt.Sprintf(`{
@@ -81,11 +84,14 @@ func CreateFields(table models.Table) {
 				table.ID,  // table_id
 			)
 
-			respCreateSingleLine, err := helper.DoRequest(constants.UrlField, "POST", createFloatFieldBody)
+			respCreateFloat, err := helper.DoRequest(constants.UrlField, "POST", createFloatFieldBody)
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Println("Float field created successfully", string(respCreateSingleLine))
+			fmt.Println("Float field created successfully")
+			var responseField models.CreateResponse
+			json.Unmarshal(respCreateFloat, &responseField)
+			table.FieldID[fieldSlug] = responseField.Data.ID
 
 		} else {
 			fmt.Print(fieldType, "\n")
@@ -93,4 +99,5 @@ func CreateFields(table models.Table) {
 
 		}
 	}
+	return *table
 }

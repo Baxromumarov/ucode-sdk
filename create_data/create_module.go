@@ -1,4 +1,4 @@
-package creata_data
+package create_data
 
 import (
 	"encoding/json"

@@ -1,19 +1,23 @@
 {
-    "parent_id": "dfe6eb02-e3de-4c03-b12c-4636644fce38",
-    "type": "TABLE",
-    "table_id": "e6437617-26b8-42de-8a69-bc28b64bf602",
-    "label": "new",
-    "attributes": {
-        "label_en": "new",
-        "label_ru": "new",
-        "label_uz": "new",
-        "description_en": "",
-        "description_ru": "",
-        "description_uz": ""
+    "status": "CREATED",
+    "description": "The request has been fulfilled and has resulted in one or more new resources being created",
+    "data": {
+        "id": "c5c0c39d-8ff9-43d2-927b-5d8a0cd38050",
+        "type": "SINGLE_LINE",
+        "index": "string",
+        "label": "balance",
+        "slug": "balance",
+        "table_id": "d4020dfa-b536-4e67-b0d7-8bc0ac0dac93",
+        "attributes": {
+            "defaultValue": "",
+            "icon": "",
+            "label_en": "balance",
+            "label_ru": "balance",
+            "label_uz": "balance",
+            "number_of_rounds": null,
+            "showTooltip": false,
+            "show_label": true
+        }
     },
-    "icon": "bear-toy.svg"
+    "custom_message": ""
 }
-
-
-
-// https://api.admin.u-code.io/v1/menu?project-id=706e26b0-c33f-4895-84a5-5de3600d5b82

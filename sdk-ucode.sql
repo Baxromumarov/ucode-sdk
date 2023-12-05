@@ -1,6 +1,6 @@
 CREATE TABLE "sdk-module.sdk_table" (
   "guid" uuid PRIMARY KEY,
-  "balance" float
+  "balance" varchar
 );
 
 CREATE TABLE "sdk_product" (

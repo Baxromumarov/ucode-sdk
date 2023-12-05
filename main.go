@@ -3,10 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
-	"github.com/baxromumarov/ucode-sdk/creata_data"
+	"github.com/baxromumarov/ucode-sdk/create_data"
 	"github.com/baxromumarov/ucode-sdk/helper"
 	"github.com/baxromumarov/ucode-sdk/models"
 )
@@ -22,7 +23,7 @@ func main() {
 
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Println("Error opening file:", err)
+		log.Fatal(err)
 		return
 	}
 	defer file.Close()
@@ -30,7 +31,8 @@ func main() {
 
 	var (
 		table = models.Table{
-			Fields: make(map[string]string),
+			FieldType: make(map[string]string),
+			FieldID:   make(map[string]string),
 		}
 		tables = models.AllTable{}
 	)
@@ -39,11 +41,13 @@ func main() {
 		line := scanner.Text()
 
 		if strings.Contains(line, ");") {
-			fmt.Println("true case")
-			creata_data.CreateFields(table)
+			create_data.CreateFields(&table)
+
 			tables.Tables = append(tables.Tables, table)
+
 			table = models.Table{
-				Fields: make(map[string]string),
+				FieldType: make(map[string]string),
+				FieldID:   make(map[string]string),
 			}
 		}
 
@@ -55,12 +59,11 @@ func main() {
 			tableName := getTableName(line)
 
 			//! create a new table
-			tableID = creata_data.CreateTable(tableName, moduleID)
+			tableID = create_data.CreateTable(tableName, moduleID)
 
 			table.ID = tableID
 			table.Name = tableName
 
-			fmt.Println("TABLE NAME:   ", tableName)
 			continue
 		}
 
@@ -68,17 +71,16 @@ func main() {
 		if len(splitedRow) == 1 {
 			continue
 		}
-		fmt.Println("line before cleaning", line)
+
 		finalRow := helper.CleaningFields(splitedRow)
-		// fmt.Println("final row: ", finalRow)
-		table.Fields[finalRow[0]] = finalRow[1]
-		// [balance float]
+
+		table.FieldType[finalRow[0]] = finalRow[1]
 
 	}
-	// fmt.Println(table)
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading file:", err)
+		log.Fatal(err)
 	}
 }
 
@@ -94,87 +96,8 @@ func getTableName(line string) string {
 		return row[0]
 	} else {
 		// ! Create module
-		moduleID = creata_data.CreateModule(row[0])
+		moduleID = create_data.CreateModule(row[0])
 		return row[1]
 	}
 
 }
-
-// CREATE TABLE "sdk_table" (
-
-// func getTableName(line string) string {
-// 	line = strings.ReplaceAll(line, `CREATE TABLE`, "")
-// 	line = strings.ReplaceAll(line, ` `, "")
-// 	line = strings.ReplaceAll(line, `"`, "")
-// 	line = strings.ReplaceAll(line, `(`, "")
-// 	row := strings.Split(line, ".")
-// 	if len(row) == 1 {
-// 		return row[0]
-// 	} else {
-// 		// Create module
-// 		moduleID = createModule(row[0])
-// 		return row[1]
-// 	}
-
-// }
-// func cleaningRow(input []string) []string {
-// 	var result []string
-
-// 	for _, str := range input {
-// 		if len(str) > 4 {
-// 			// if strings.Contains(str, ".") && !strings.Contains(str, "id") {
-// 			// 	splitedStr := strings.Split(str, ".")
-// 			// 	moduleName := splitedStr[0]
-// 			// 	moduleName = strings.ReplaceAll(moduleName, `"`, "")
-
-// 			// 	tableName := splitedStr[1]
-// 			// 	str = strings.ReplaceAll(tableName, `"`, "")
-
-// 			// 	fmt.Println(moduleName, tableName)
-
-// 			// } else {
-// 			str = strings.ReplaceAll(str, `"`, "")
-// 			str = strings.ReplaceAll(str, `,`, "")
-
-// 			// }
-// 			result = append(result, str)
-// 		}
-// 	}
-
-// 	return result
-// }
-// func DoRequest(url string, method string, body string) ([]byte, error) {
-
-// 	request, err := http.NewRequest(method, url, bytes.NewBuffer([]byte(body)))
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	request.Header.Set("Content-Type", "application/json")
-// 	request.Header.Set("Authorization", token)
-
-// 	client := &http.Client{
-// 		Timeout: time.Duration(10 * time.Second),
-// 	}
-// 	resp, err := client.Do(request)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer resp.Body.Close()
-
-// 	respByte, err := io.ReadAll(resp.Body)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return respByte, nil
-// }
-
-// type CreateResponse struct {
-// 	Status      string `json:"status"`
-// 	Description string `json:"description"`
-// 	Data        struct {
-// 		ID string `json:"id"`
-// 	} `json:"data"`
-// 	CustomMessage string `json:"custom_message"`
-// }
