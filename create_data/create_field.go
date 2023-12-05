@@ -9,13 +9,78 @@ import (
 	"github.com/baxromumarov/ucode-sdk/constants"
 	"github.com/baxromumarov/ucode-sdk/helper"
 	"github.com/baxromumarov/ucode-sdk/models"
+	"github.com/spf13/cast"
 )
 
-func CreateFields(table *models.Table) models.Table {
+func CreateFields(table *models.Table, allTables map[string]string) models.Table {
 	// ! create field for single line
 	for fieldSlug, fieldType := range table.FieldType {
-		if fieldType == "uuid" {
-			continue
+		if fieldType == "uuid" && fieldSlug != "guid" {
+			tableInfo := strings.Split(fieldSlug, ".")
+			fieldId := ""
+			tableId := allTables[tableInfo[0]]
+			fmt.Println(tableId)
+			var (
+				getFieldsUrl       = constants.GetFields + fmt.Sprintf(`?table_id=%s`, tableId)
+				listTablesResponse models.FieldResponse
+			)
+
+			listTableResp, err := helper.DoRequest(getFieldsUrl, "GET", "")
+			if err != nil {
+				log.Fatal(err)
+				return models.Table{}
+			}
+
+			if err := json.Unmarshal(listTableResp, &listTablesResponse); err != nil {
+				log.Fatal(err)
+				return models.Table{}
+			}
+
+			for _, singleField := range listTablesResponse.Data.Fields {
+				if cast.ToString(singleField["slug"]) == tableInfo[1] {
+					fieldId = cast.ToString(singleField["id"])
+				}
+			}
+
+			var (
+				createRelationRequest = constants.UrlRelation
+				createRelationBody    = fmt.Sprintf(`{
+					"table_from": "%s",
+					"auto_filters": [],
+					"action_relations": [],
+					"attributes": {
+					  "title_en": "%s",
+					  "title_ru": "%s",
+					  "title_uz": "%s",
+					  "multiple_input": false
+					},
+					"table_to": "%s",
+					"type": "Many2One",
+					"default_limit": "",
+					"multiple_insert": false,
+					"filtersList": [],
+					"columnsList": [],
+					"view_fields": [
+					  "%s"
+					],
+					"relation_table_slug": "%s",
+					"columns": [],
+					"quick_filters": [],
+					"default_values": [],
+					"title": "user"
+				  }`,
+					table.Name,
+					tableInfo[1], tableInfo[1], tableInfo[1],
+					tableInfo[0],
+					fieldId,
+					table.Name)
+			)
+			_, err = helper.DoRequest(createRelationRequest, "POST", createRelationBody)
+			if err != nil {
+				log.Fatal("><><>", err)
+				return models.Table{}
+			}
+			fmt.Println("created relation to ", tableInfo[0], tableInfo[1])
 		}
 
 		if strings.Contains(fieldType, "varchar") || strings.Contains(fieldType, "string") {
@@ -93,6 +158,8 @@ func CreateFields(table *models.Table) models.Table {
 			json.Unmarshal(respCreateFloat, &responseField)
 			table.FieldID[fieldSlug] = responseField.Data.ID
 
+		} else if fieldType == "uuid" {
+			continue
 		} else {
 			fmt.Print(fieldType, "\n")
 			log.Fatal(" not found", " field type must be , float, number, integer, int, string,varchar")

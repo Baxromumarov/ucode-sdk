@@ -1,12 +1,18 @@
-CREATE TABLE "sdk-module.sdk_table" (
+CREATE TABLE "rr_modul.rrr_table" (
   "guid" uuid PRIMARY KEY,
   "balance" varchar
 );
 
-CREATE TABLE "sdk_product" (
+CREATE TABLE "rrrr_table" (
+  "guid" uuid PRIMARY KEY,
+  "name" varchar
+);
+
+CREATE TABLE "rrrrr_product" (
   "guid" uuid PRIMARY KEY,
   "product_name" varchar,
-  "sdk_table_id.balance" uuid
+  "rrr_table.balance" uuid,
+  "rrrr_table.name" uuid
 );
 
 

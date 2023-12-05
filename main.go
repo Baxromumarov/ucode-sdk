@@ -19,7 +19,7 @@ var (
 
 func main() {
 
-	filePath := "/Users/macbookpro/go/src/github.com/baxromumarov/ucode-sdk/sdk-ucode.sql"
+	filePath := "./sdk-ucode.sql"
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -34,14 +34,15 @@ func main() {
 			FieldType: make(map[string]string),
 			FieldID:   make(map[string]string),
 		}
-		tables = models.AllTable{}
+		tables    = models.AllTable{}
+		allTables = map[string]string{}
 	)
 
 	for scanner.Scan() {
 		line := scanner.Text()
 
 		if strings.Contains(line, ");") {
-			create_data.CreateFields(&table)
+			create_data.CreateFields(&table, allTables)
 
 			tables.Tables = append(tables.Tables, table)
 
@@ -63,6 +64,7 @@ func main() {
 
 			table.ID = tableID
 			table.Name = tableName
+			allTables[tableName] = tableID
 
 			continue
 		}
