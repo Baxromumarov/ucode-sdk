@@ -15,10 +15,11 @@ import (
 func CreateFields(table *models.Table, allTables map[string]string) models.Table {
 	// ! create field for single line
 	for fieldSlug, fieldType := range table.FieldType {
+
 		if fieldType == "uuid" && fieldSlug != "guid" {
 			tableInfo := strings.Split(fieldSlug, ".")
 			fieldId := ""
-			tableId := allTables[tableInfo[0]]
+			tableId := allTables[tableInfo[0][:len(tableInfo[0])-3]]
 			fmt.Println(tableId)
 			var (
 				getFieldsUrl       = constants.GetFields + fmt.Sprintf(`?table_id=%s`, tableId)
@@ -70,8 +71,10 @@ func CreateFields(table *models.Table, allTables map[string]string) models.Table
 					"title": "user"
 				  }`,
 					table.Name,
-					tableInfo[1], tableInfo[1], tableInfo[1],
-					tableInfo[0],
+					tableInfo[1],
+					tableInfo[1],
+					tableInfo[1],
+					tableInfo[0][:len(tableInfo[0])-3],
 					fieldId,
 					table.Name)
 			)
@@ -115,7 +118,7 @@ func CreateFields(table *models.Table, allTables map[string]string) models.Table
 			if err != nil {
 				log.Fatal(err)
 			}
-
+			fmt.Println("Single Line field created successfully")
 			var responseField models.CreateResponse
 			json.Unmarshal(respCreateSingleLine, &responseField)
 			table.FieldID[fieldSlug] = responseField.Data.ID

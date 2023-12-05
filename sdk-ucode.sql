@@ -1,19 +1,15 @@
-CREATE TABLE "rr_modul.rrr_table" (
+CREATE TABLE "sdk-module.sdk_table" (
   "guid" uuid PRIMARY KEY,
-  "balance" varchar
+  "balance" float
 );
 
-CREATE TABLE "rrrr_table" (
-  "guid" uuid PRIMARY KEY,
-  "name" varchar
-);
-
-CREATE TABLE "rrrrr_product" (
+CREATE TABLE "sdk_product" (
   "guid" uuid PRIMARY KEY,
   "product_name" varchar,
-  "rrr_table.balance" uuid,
-  "rrrr_table.name" uuid
+  "price" integer,
+  "sdk_table_id.balance" uuid
 );
 
-
-ALTER TABLE "sdk_product" ADD FOREIGN KEY ("sdk_table_id") REFERENCES "sdk_table" ("guid");
+ALTER TABLE "sdk_product(to_table)" ADD FOREIGN KEY ("sdk_table_id") REFERENCES "sdk_table(from_table)" ("guid");
+-- sdk_table one sdk_product many
+ALTER TABLE "sdk_product" ADD FOREIGN KEY ("sdk_table_id") REFERENCES "sdk_table(from_table)" ("guid");

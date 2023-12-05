@@ -41,7 +41,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		if strings.Contains(line, ");") {
+		if strings.Contains(line, ");") && strings.Contains(line, "ALTER") {
 			create_data.CreateFields(&table, allTables)
 
 			tables.Tables = append(tables.Tables, table)
