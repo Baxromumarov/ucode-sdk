@@ -171,7 +171,7 @@ func CreateFields(table models.Table, allTables map[string]string) {
 			continue
 		} else {
 			fmt.Print(fieldType, "\n")
-			log.Fatal(" not found", " field type must be , float, number, integer, int, string,varchar")
+			fmt.Println(" not found", " field type must be , float, number, integer, int, string,varchar")
 
 		}
 	}
