@@ -1,105 +1,17 @@
 {
-    "table_from": "sdk_product",
-    "auto_filters": [],
-    "action_relations": [],
     "attributes": {
-        "title_en": "LabelEN",
-        "title_ru": "LabelRU",
-        "title_uz": "LabelUZ",
-        "multiple_input": false
+        "label": "",
+        "defaultValue": "",
+        "label_en": "time field",
+        "number_of_rounds": null
     },
-    "table_to": "sdk_table",
-    "type": "Many2One",
-    "default_limit": "",
-    "multiple_insert": false,
-    "filtersList": [
-        {
-            "attributes": {
-                "defaultValue": "",
-                "field_permission": {
-                    "create_relation_permission": false,
-                    "edit_permission": true,
-                    "field_id": "9464cdf6-677d-432c-b466-689f0204165f",
-                    "guid": "a2802f7e-7350-4df8-9783-52e26700faf1",
-                    "label": "balance",
-                    "role_id": "330360b2-7ac6-479b-8b68-c35c1644bc23",
-                    "table_slug": "sdk_table",
-                    "view_permission": true
-                },
-                "icon": "",
-                "label_en": "balance",
-                "label_ru": "balance",
-                "label_uz": "balance",
-                "number_of_rounds": null,
-                "showTooltip": false,
-                "show_label": true
-            },
-            "autofill_field": "",
-            "autofill_table": "",
-            "automatic": false,
-            "commit_id": "",
-            "default": "",
-            "enable_multilanguage": false,
-            "hide_multilanguage": false,
-            "id": "9464cdf6-677d-432c-b466-689f0204165f",
-            "index": "string",
-            "is_visible": false,
-            "label": "balance",
-            "minio_folder": "",
-            "required": false,
-            "slug": "balance",
-            "table_id": "9cd25015-895a-49c1-b289-cd6d9de787b1",
-            "type": "FLOAT",
-            "unique": false
-        }
-    ],
-    "columnsList": [
-        {
-            "attributes": {
-                "defaultValue": "",
-                "field_permission": {
-                    "create_relation_permission": false,
-                    "edit_permission": true,
-                    "field_id": "9464cdf6-677d-432c-b466-689f0204165f",
-                    "guid": "a2802f7e-7350-4df8-9783-52e26700faf1",
-                    "label": "balance",
-                    "role_id": "330360b2-7ac6-479b-8b68-c35c1644bc23",
-                    "table_slug": "sdk_table",
-                    "view_permission": true
-                },
-                "icon": "",
-                "label_en": "balance",
-                "label_ru": "balance",
-                "label_uz": "balance",
-                "number_of_rounds": null,
-                "showTooltip": false,
-                "show_label": true
-            },
-            "autofill_field": "",
-            "autofill_table": "",
-            "automatic": false,
-            "commit_id": "",
-            "default": "",
-            "enable_multilanguage": false,
-            "hide_multilanguage": false,
-            "id": "9464cdf6-677d-432c-b466-689f0204165f",
-            "index": "string",
-            "is_visible": false,
-            "label": "balance",
-            "minio_folder": "",
-            "required": false,
-            "slug": "balance",
-            "table_id": "9cd25015-895a-49c1-b289-cd6d9de787b1",
-            "type": "FLOAT",
-            "unique": false
-        }
-    ],
-    "view_fields": [
-        "9464cdf6-677d-432c-b466-689f0204165f"
-    ],
-    "relation_table_slug": "sdk_product",
-    "columns": [],
-    "quick_filters": [],
-    "default_values": [],
-    "title": "LabelEN"
+    "default": "",
+    "index": "string",
+    "label": "time field",
+    "required": false,
+    "slug": "time_field",
+    "table_id": "fd63f1f2-3170-4a94-8575-7666ae9e3023",
+    "type": "DATE_TIME_WITHOUT_TIME_ZONE",
+    "id": "bb22e6f5-7813-4b0f-b1fd-d60def897f9c",
+    "show_label": true
 }

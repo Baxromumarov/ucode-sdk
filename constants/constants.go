@@ -1,11 +1,36 @@
 package constants
 
 const (
+	AppID           = ""
 	PatternRelation = `\"([^"]+)\"`
 	UrlTable        = "https://api.admin.u-code.io/v1/table"
-	UrlModule       = "https://api.admin.u-code.io/v1/menu"
-	UrlField        = "https://api.admin.u-code.io/v1/field"
-	UrlRelation     = "https://api.admin.u-code.io/v1/relation"
+	UrlMenu         = "https://api.admin.u-code.io/v2/menus"
+	UrlField        = "https://api.admin.u-code.io/v2/fields/"
+	UrlRelation     = "https://api.admin.u-code.io/v2/relations/"
 	GetFields       = "https://api.admin.u-code.io/v1/field"
-	Token           = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfcGxhdGZvcm1faWQiOiIiLCJjbGllbnRfdHlwZV9pZCI6ImY3M2EyNjc4LTdiMzMtNDZkMS1iNmZkLWRlZDA1ZTVhYmFkNyIsImRhdGEiOiJhZGRpdGlvbmFsIGpzb24gZGF0YSIsImV4cCI6MTcwMjUzNjIxMiwiaWF0IjoxNzAyNDQ5ODEyLCJpZCI6IjcxMGIwMmZkLWRjMzAtNGY2OC1hMDU4LWYzNWQyYWVlNmFmMCIsImlwIjoiYWRkaXRpb25hbCBqc29uIGRhdGEiLCJsb2dpbl90YWJsZV9zbHVnIjoidXNlciIsInByb2plY3RfaWQiOiIwMDM3ZjQyMi00MTY4LTQ0YjEtYTdlNC0yZmE4YWVjNTMzMjEiLCJyb2xlX2lkIjoiZmQyZGRlZjEtOTc0NC00NmU1LWE3ZDAtOGY0NzE5MWU5MzNjIiwidGFibGVzIjpbXSwidXNlcl9pZCI6IjFhZmU4ZDU5LWIwMDEtNDBkYy1iM2U5LTBjN2U1MmM0NTUwOSJ9.1bSpSMliI8gcEyWYItY7mShZwtagdNLwWX-edC7mBLM"
+	Token           = ""
+)
+
+var (
+	FieldTypes = map[string]string{
+		"varchar":   "SINGLE_LINE",
+		"text":      "MULTI_LINE",
+		"email":     "EMAIL",
+		"photo":     "PHOTO",
+		"phone":     "PHONE",
+		"file":      "FILE",
+		"date":      "DATE",
+		"time":      "TIME",
+		"date_time": "DATE_TIME",
+		"timestamp": "DATE_TIME_WITHOUT_TIME_ZONE",
+		"float":     "FLOAT",
+		"number":    "FLOAT",
+		"int":       "FLOAT",
+		"integer":   "FLOAT",
+		"checkbox":  "CHECKBOX",
+		"switch":    "SWITCH",
+		"text[]":    "MULTISELECT",
+		"varchar[]": "MULTISELECT",
+		"serial":    "INCREMENT_NUMBER",
+	}
 )
