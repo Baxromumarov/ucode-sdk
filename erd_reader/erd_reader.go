@@ -2,7 +2,6 @@ package structure
 
 import (
 	"bufio"
-	"fmt"
 
 	"log"
 	"os"
@@ -61,8 +60,9 @@ func Reader() {
 			// then this is enum (multi select). Store it "enums" map
 			// And if later face this type then create a multi select
 			enumName := helper.EnumParser(line)
-			// fmt.Println(enumName)
+
 			var multiSelectValues []string
+
 			for scanner.Scan() {
 				line := scanner.Text()
 				if strings.Contains(line, ");") {
@@ -72,37 +72,21 @@ func Reader() {
 				multiSelectValue := helper.EnumNameParser(line)
 				multiSelectValues = append(multiSelectValues, multiSelectValue)
 
-				// fmt.Println(">>>>> ", multiSelectValue)
 			}
 			constants.Enums[enumName] = multiSelectValues
 		}
 
-		// if strings.Contains(line, ".") {
-		// 	//! this vulnerable because other lines have also '.' symbol
-		// 	fmt.Println(">>>>>>>>> ", line)
-		// 	fieldName, fieldSlug, fieldType := helper.FieldParser(line)
-		// 	fmt.Println(fieldName)
-		// 	fmt.Println(fieldSlug)
-		// 	fmt.Println(fieldType)
-		// }
-		fmt.Println(constants.Enums)
-		// continue
-
 		if strings.Contains(line, "ALTER TABLE ") {
-			// *this means relation creating started in .sql file
-			fmt.Println("<<<<<<<<< relation creating ")
+
 			structure.CreateRelation(line)
 			continue
 		}
-
-		// splitLine := strings.Split(line, " ")
 
 		if strings.Contains(line, "CREATE TABLE") {
 
 			tableName, tableSlug, menuName := helper.TableParser(line)
 
 			if menuName != "" {
-			// this means 
 				constants.MenuID = structure.CreateMenu(menuName)
 				tableID := structure.CreateTable(tableSlug, constants.MenuID, tableName)
 
@@ -119,35 +103,6 @@ func Reader() {
 				table.Slug = tableSlug
 				table.Name = tableName
 			}
-
-			// fmt.Println("SPLITLINE: ", splitLine[2])
-			// data := strings.Split(splitLine[2], ".")
-			// if len(data) == 3 {
-			// 	menuName, tableName, tableSlug := data[0], data[1], data[2]
-			// 	menuName = menuName[1:]
-			// 	tableSlug = tableSlug[:len(tableSlug)-1]
-
-			// 	constants.MenuID = structure.CreateMenu(menuName)
-			// 	tableID := structure.CreateTable(tableSlug, constants.MenuID, tableName)
-
-			// 	//  table data collecting
-			// 	table.ID = tableID
-			// 	table.Slug = tableSlug
-			// 	table.Name = tableName
-
-			// } else {
-			// 	fmt.Println(">>>>>>> ", data)
-			// 	tableName, tableSlug := data[0], data[1]
-			// 	tableName = tableName[1:]
-			// 	tableSlug = tableSlug[:len(tableSlug)-1]
-
-			// 	tableID := structure.CreateTable(tableSlug, constants.MenuID, tableName)
-
-			// 	//  table data collecting
-			// 	table.ID = tableID
-			// 	table.Slug = tableSlug
-			// 	table.Name = tableName
-			// }
 
 			tables[table.Name] = table.ID
 
@@ -181,7 +136,7 @@ func Reader() {
 	}
 
 	if err := scanner.Err(); err != nil {
-		fmt.Println("Error reading file:", err)
-		log.Fatal(err)
+		log.Fatal("Error reading file: ", err)
+		return
 	}
 }

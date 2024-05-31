@@ -112,46 +112,10 @@ func TableToMenuBody(menuID, tableID, tableName string) string {
 	)
 }
 
-// func RelationBody(labelEn, labelToEn, oneTable, manyTable string) string {
-// 	return fmt.Sprintf(`{
-// 			"attributes": {
-// 				"math": {
-// 					"label": "plus",
-// 					"value": "+"
-// 				},
-// 				"format": "RELATION",
-// 				"options": [],
-// 				"label": "",
-// 				"label_to": "",
-// 				"label_en": "%s",
-// 				"label_to_en": "%s"
-// 			},
-// 			"type": "Many2One",
-// 			"relation_type": "Many2One",
-// 			"table_to": "%s,
-// 			"view_fields": ["910affd1-c2d2-45b0-a92a-14968b7aac75"],
-// 			"table_from": "%s",
-// 			"filtersList": [],
-// 			"columnsList": [],
-// 			"relation_table_slug": "%s",
-// 			"required": false,
-// 			"multiple_insert": false,
-// 			"show_label": true,
-// 			"id": "%s"
-// 		}`,
-// 		labelEn,
-// 		labelToEn,
-// 		oneTable,
-// 		manyTable,
-// 		manyTable,
-// 		uuid.New().String(),
-// 	)
-// }
-
-func RelationBody(labelEn, labelToEn, oneTable, manyTable string) RelationCreateBody {
-	return RelationCreateBody{
-		Attributes: Attributes{
-			Math: Math{
+func RelationBody(labelEn, labelToEn, oneTable, manyTable string) models.RelationCreateBody {
+	return models.RelationCreateBody{
+		Attributes: models.FieldAttributes{
+			Math: models.Math{
 				Label: "plus",
 				Value: "+",
 			},
@@ -175,40 +139,9 @@ func RelationBody(labelEn, labelToEn, oneTable, manyTable string) RelationCreate
 		ShowLabel:         true,
 		ID:                uuid.NewString(),
 	}
-	// return fmt.Sprintf(`{
-	// 		"attributes": {
-	// 			"math": {
-	// 				"label": "plus",
-	// 				"value": "+"
-	// 			},
-	// 			"format": "RELATION",
-	// 			"options": [],
-	// 			"label": "",
-	// 			"label_to": "",
-	// 			"label_en": "%s",
-	// 			"label_to_en": "%s"
-	// 		},
-	// 		"type": "Many2One",
-	// 		"relation_type": "Many2One",
-	// 		"table_to": "%s,
-	// 		"view_fields": ["910affd1-c2d2-45b0-a92a-14968b7aac75"],
-	// 		"table_from": "%s",
-	// 		"filtersList": [],
-	// 		"columnsList": [],
-	// 		"relation_table_slug": "%s",
-	// 		"required": false,
-	// 		"multiple_insert": false,
-	// 		"show_label": true,
-	// 		"id": "%s"
-	// 	}`,
-	// 	labelEn,
-	// 	labelToEn,
-	// 	oneTable,
-	// 	manyTable,
-	// 	manyTable,
-	// 	uuid.New().String(),
-	// )
+
 }
+
 func MultiSelectBody(label, tableId, slug, enumName string) models.MultiSelectRequestBody {
 	var options = []models.Options{}
 
@@ -243,33 +176,4 @@ func MultiSelectBody(label, tableId, slug, enumName string) models.MultiSelectRe
 		ShowLabel: true,
 	}
 	return result
-}
-
-type RelationCreateBody struct {
-	Attributes        Attributes `json:"attributes"`
-	Type              string     `json:"type"`
-	RelationType      string     `json:"relation_type"`
-	TableTo           string     `json:"table_to"`
-	ViewFields        []string   `json:"view_fields"`
-	TableFrom         string     `json:"table_from"`
-	FiltersList       []string   `json:"filtersList"`
-	ColumnsList       []string   `json:"columnsList"`
-	RelationTableSlug string     `json:"relation_table_slug"`
-	Required          bool       `json:"required"`
-	MultipleInsert    bool       `json:"multiple_insert"`
-	ShowLabel         bool       `json:"show_label"`
-	ID                string     `json:"id"`
-}
-type Math struct {
-	Label string `json:"label"`
-	Value string `json:"value"`
-}
-type Attributes struct {
-	Math      Math     `json:"math"`
-	Format    string   `json:"format"`
-	Options   []string `json:"options"`
-	Label     string   `json:"label"`
-	LabelTo   string   `json:"label_to"`
-	LabelEn   string   `json:"label_en"`
-	LabelToEn string   `json:"label_to_en"`
 }

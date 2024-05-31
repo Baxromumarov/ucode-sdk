@@ -2,27 +2,24 @@ package structure
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/baxromumarov/ucode-sdk/constants"
 	"github.com/baxromumarov/ucode-sdk/helper"
 	"github.com/baxromumarov/ucode-sdk/models"
+	"github.com/fatih/color"
 )
 
 func CreateFields(table models.Table) {
 
 	// ! create field for single line
 	for _, field := range table.Fields {
-		fmt.Println(field.Name)
-		fmt.Println(field.Slug)
-		fmt.Println(table.ID)
-		fmt.Println(field.Type)
-		fmt.Println(constants.FieldTypes[field.Type])
+
 		createFieldBody := ""
 		if _, ok := constants.FieldTypes[field.Type]; !ok {
-			// if field.Type not in constants then this is multiselect type
+
 			reqBody := helper.MultiSelectBody(field.Name, table.ID, field.Slug, field.Type)
+
 			byteReq, err := json.Marshal(reqBody)
 			if err != nil {
 				log.Fatal("error while unmarshalling multi select body ", err)
@@ -32,20 +29,19 @@ func CreateFields(table models.Table) {
 		} else {
 			createFieldBody = helper.FieldBody(field.Name, field.Slug, table.ID, constants.FieldTypes[field.Type])
 		}
-		// fmt.Println(createFieldBody)
+
 		respField, err := helper.DoRequest(constants.UrlField+table.Slug, "POST", createFieldBody)
-		fmt.Println(">>>>>>>>", constants.UrlField+table.Slug)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal("error while creating field ", err)
+			return
 		}
 
 		var responseField models.CreateResponse
-		fmt.Println(">>>>>>123412 ", string(respField))
 
 		if err := json.Unmarshal(respField, &responseField); err != nil {
-			fmt.Println("Here12 ", err)
-			log.Fatal(err)
+			log.Fatal("error while unmarshalling responseField ", err)
+			return
 		}
-		fmt.Println("Single Line field created successfully")
+		color.Green("Field successfully created")
 	}
 }

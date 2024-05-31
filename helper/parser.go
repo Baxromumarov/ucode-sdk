@@ -2,13 +2,13 @@ package helper
 
 import (
 	"bytes"
-	"fmt"
-	"github.com/baxromumarov/ucode-sdk/constants"
 	"io"
 	"log"
 	"net/http"
 	"regexp"
 	"time"
+
+	"github.com/baxromumarov/ucode-sdk/constants"
 )
 
 func DoRequest(url string, method string, body string) ([]byte, error) {
@@ -39,14 +39,13 @@ func DoRequest(url string, method string, body string) ([]byte, error) {
 }
 
 func FieldParser(line string) (fieldName, fieldSlug, fieldType string) {
-	fmt.Println("CollectFieldData: ", line)
-	// re := regexp.MustCompile(`"([^"]+)\.([^"]+)"\s+(\w+),`)
+	
 	re := regexp.MustCompile(`"([^"]+)\.([^"]+)"\s+([\w\[\]]+)`)
 
 	// Find the matches
 	matches := re.FindStringSubmatch(line)
 	if len(matches) != 4 {
-		fmt.Println("No matches found")
+		log.Fatal("No matches found(FieldParser)")
 		return
 	}
 
@@ -63,7 +62,7 @@ func RelationParser(line string) (from, to, labelEn, labelToEn string) {
 	// Find the matches
 	matches := re.FindStringSubmatch(line)
 	if len(matches) != 7 {
-		fmt.Println("No matches found")
+		log.Fatal("No matches found(RelationParser)")
 		return
 	}
 	labelEn = matches[1]
@@ -71,39 +70,15 @@ func RelationParser(line string) (from, to, labelEn, labelToEn string) {
 	labelToEn = matches[4]
 	to = matches[5]
 
-	fmt.Printf("label_en = %s\n", labelEn)
-	fmt.Printf("from = %s\n", from)
-	fmt.Printf("label_to_en = %s\n", labelToEn)
-	fmt.Printf("to = %s\n", to)
 	return from, to, labelEn, labelToEn
 }
 
-func EnumFieldParser(line string) {
-	// Regular expression to match and capture the field name, slug, and type
-	re := regexp.MustCompile(`"([^"]+)\.([^"]+)"\s+(\w+)(?:\s+NOT NULL)?`)
-
-	// Find the matches
-	matches := re.FindStringSubmatch(line)
-	if len(matches) != 4 {
-		fmt.Println("No matches found or invalid format")
-		return
-	}
-
-	fieldName := matches[1]
-	fieldSlug := matches[2]
-	fieldType := matches[3]
-
-	fmt.Printf("fieldName = %s\n", fieldName)
-	fmt.Printf("fieldSlug = %s\n", fieldSlug)
-	fmt.Printf("fieldType = %s\n", fieldType)
-
-}
 func EnumNameParser(line string) (multiSelect string) {
 	re := regexp.MustCompile(`'\s*([^']*)\s*'\s*,?`)
 
 	matches := re.FindStringSubmatch(line)
 	if len(matches) != 2 {
-		fmt.Println("No matches found or invalid format")
+		log.Fatal("No matches found or invalid format(EnumNameParser)")
 		return multiSelect
 	}
 
@@ -119,7 +94,7 @@ func EnumParser(line string) (enumName string) {
 	// Find the matches
 	matches := re.FindStringSubmatch(line)
 	if len(matches) != 2 {
-		fmt.Println("No matches found or invalid format")
+		log.Fatal("No matches found or invalid format(EnumParser)")
 		return
 	}
 
@@ -134,6 +109,7 @@ func TableParser(line string) (tableName, tableSlug, menuName string) {
 	matches := re.FindStringSubmatch(line)
 	if len(matches) != 5 {
 		log.Fatal("No matches found or invalid format")
+		return
 	}
 
 	menuName = matches[1]
@@ -146,9 +122,5 @@ func TableParser(line string) (tableName, tableSlug, menuName string) {
 		tableSlug = matches[4]
 	}
 
-	fmt.Printf("menuName = %s\n", menuName)
-	fmt.Printf("tableName = %s\n", tableName)
-	fmt.Printf("tableSlug = %s\n", tableSlug)
-	fmt.Println("----------")
 	return tableName, tableSlug, menuName
 }

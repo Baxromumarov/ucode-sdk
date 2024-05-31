@@ -130,4 +130,31 @@ type Attributes struct {
 	NumberOfRounds any       `json:"number_of_rounds"`
 }
 
-
+type RelationCreateBody struct {
+	Attributes        FieldAttributes `json:"attributes"`
+	Type              string          `json:"type"`
+	RelationType      string          `json:"relation_type"`
+	TableTo           string          `json:"table_to"`
+	ViewFields        []string        `json:"view_fields"`
+	TableFrom         string          `json:"table_from"`
+	FiltersList       []string        `json:"filtersList"`
+	ColumnsList       []string        `json:"columnsList"`
+	RelationTableSlug string          `json:"relation_table_slug"`
+	Required          bool            `json:"required"`
+	MultipleInsert    bool            `json:"multiple_insert"`
+	ShowLabel         bool            `json:"show_label"`
+	ID                string          `json:"id"`
+}
+type Math struct {
+	Label string `json:"label"`
+	Value string `json:"value"`
+}
+type FieldAttributes struct {
+	Math      Math     `json:"math"`
+	Format    string   `json:"format"`
+	Options   []string `json:"options"`
+	Label     string   `json:"label"`
+	LabelTo   string   `json:"label_to"`
+	LabelEn   string   `json:"label_en"`
+	LabelToEn string   `json:"label_to_en"`
+}

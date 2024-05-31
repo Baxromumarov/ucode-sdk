@@ -2,12 +2,12 @@ package structure
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/baxromumarov/ucode-sdk/constants"
 	"github.com/baxromumarov/ucode-sdk/helper"
 	"github.com/baxromumarov/ucode-sdk/models"
+	"github.com/fatih/color"
 )
 
 func CreateMenu(menuName string) string {
@@ -20,11 +20,13 @@ func CreateMenu(menuName string) string {
 	}
 
 	var responseModule models.CreateMenuResponse
-	fmt.Println(">>>>>>> ", string(respCreateModule))
+
 	if err := json.Unmarshal(respCreateModule, &responseModule); err != nil {
 		log.Fatal("Error while unmarshalling menu ", err)
+		return ""
 	}
 
-	fmt.Println("Menu created successfully. Menu id: ", responseModule.Data.ID)
+	color.Green("Menu successfully created. Menu id: ", responseModule.Data.ID)
+
 	return responseModule.Data.ID
 }
