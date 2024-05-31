@@ -20,7 +20,7 @@ var (
 		"text":      "MULTI_LINE",
 		"email":     "EMAIL",
 		"photo":     "PHOTO",
-		"phone":     "PHONE",
+		"phone":     "INTERNATIONAL_PHONE",
 		"file":      "FILE",
 		"date":      "DATE",
 		"time":      "TIME",
