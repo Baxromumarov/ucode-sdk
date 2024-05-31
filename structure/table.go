@@ -2,6 +2,7 @@ package structure
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/baxromumarov/ucode-sdk/constants"
@@ -13,6 +14,7 @@ import (
 // NOTE app_id ---> menu_id.
 // This functions returns table id
 func CreateTable(tableSlug string, menuID string, tableLabel string) string {
+	fmt.Println(tableLabel, tableSlug)
 	// ! create table body
 	createTableBody := helper.TableBody(menuID, tableLabel, tableSlug)
 	respCreateTable, err := helper.DoRequest(constants.UrlTable, "POST", createTableBody)
@@ -22,7 +24,7 @@ func CreateTable(tableSlug string, menuID string, tableLabel string) string {
 	}
 
 	var responseTable models.CreateResponse
-
+	fmt.Println(">>>>>>> ", string(respCreateTable))
 	if err = json.Unmarshal(respCreateTable, &responseTable); err != nil {
 		log.Fatal("error while unmarshalling table response:1 ", err)
 		return ""

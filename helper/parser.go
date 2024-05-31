@@ -2,10 +2,12 @@ package helper
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/baxromumarov/ucode-sdk/constants"
@@ -39,7 +41,7 @@ func DoRequest(url string, method string, body string) ([]byte, error) {
 }
 
 func FieldParser(line string) (fieldName, fieldSlug, fieldType string) {
-	
+
 	re := regexp.MustCompile(`"([^"]+)\.([^"]+)"\s+([\w\[\]]+)`)
 
 	// Find the matches
@@ -104,23 +106,27 @@ func EnumParser(line string) (enumName string) {
 }
 
 func TableParser(line string) (tableName, tableSlug, menuName string) {
-	re := regexp.MustCompile(`CREATE TABLE "(?:(\w+)\.)?(?:(\w+)\.)?([^\.]+)\.([^"]+)" \(`)
+	// Trim the prefix and suffix
+	trimmed := strings.TrimPrefix(line, `CREATE TABLE "`)
+	trimmed = strings.TrimSuffix(trimmed, `" (`)
 
-	matches := re.FindStringSubmatch(line)
-	if len(matches) != 5 {
-		log.Fatal("No matches found or invalid format")
+	// Split the components
+	parts := strings.Split(trimmed, ".")
+
+	if len(parts) == 3 {
+		menuName = parts[0]
+		tableName = parts[1]
+		tableSlug = parts[2]
+	} else if len(parts) == 2 {
+		tableName = parts[0]
+		tableSlug = parts[1]
+	} else {
+		fmt.Println("Invalid format")
 		return
 	}
 
-	menuName = matches[1]
-	tableName = matches[2]
-	if tableName == "" {
-		tableName = matches[3]
-		tableSlug = matches[4]
-	} else {
-		tableName = matches[3]
-		tableSlug = matches[4]
-	}
-
+	fmt.Printf("menuName = %s\n", menuName)
+	fmt.Printf("tableName = %s\n", tableName)
+	fmt.Printf("tableSlug = %s\n", tableSlug)
 	return tableName, tableSlug, menuName
 }
