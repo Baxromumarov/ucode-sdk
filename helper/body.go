@@ -34,7 +34,6 @@ func FieldBody(fieldName, fieldSlug, tableID, fieldType string) string {
 		fieldType,           // type
 		uuid.New().String(), // id
 	)
-
 }
 
 func MenuBody(appId string, label string) string {

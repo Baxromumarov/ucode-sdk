@@ -26,7 +26,7 @@ func CreateMenu(menuName string) string {
 		return ""
 	}
 
-	color.Green("Menu successfully created. Menu id: ", responseModule.Data.ID)
+	color.Green("Menu successfully created. ")
 
 	return responseModule.Data.ID
 }

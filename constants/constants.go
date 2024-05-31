@@ -8,7 +8,7 @@ const (
 	UrlField        = "https://api.admin.u-code.io/v2/fields/"
 	UrlRelation     = "https://api.admin.u-code.io/v2/relations/"
 	GetFields       = "https://api.admin.u-code.io/v1/field"
-	Token           = ""
+	Token           = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfcGxhdGZvcm1faWQiOiIiLCJjbGllbnRfdHlwZV9pZCI6ImY5ZGY5YjJjLTdmMDAtNGM4NC04NmVhLWY4YWUzZTgzOTY5YSIsImRhdGEiOiJhZGRpdGlvbmFsIGpzb24gZGF0YSIsImV4cCI6MTcxNzIyMjU1NywiaWF0IjoxNzE3MTM2MTU3LCJpZCI6ImY5NDBlMzZhLTFjNTItNDRiYy05NWIwLTY4YzY2NDMzZWE1OCIsImlwIjoiYWRkaXRpb25hbCBqc29uIGRhdGEiLCJsb2dpbl90YWJsZV9zbHVnIjoiXCJ1c2VyXCIiLCJwcm9qZWN0X2lkIjoiMTIyNDA5NWItZGRkMS00NzlmLWIyNTktY2M3NjI1ZmZmMTNkIiwicm9sZV9pZCI6IjhmMmM0NWE5LTE2MDctNDMyZC1hOTUwLWQ5YzE4Zjk4ODE3ZCIsInRhYmxlcyI6W10sInVzZXJfaWQiOiJkMzZlODhlZC04NWQwLTRhMzgtOTZiNC05NWQ5ODFkMzBmZmMifQ.0jpaiypf1yWBv09aDTJYY5IkSNQHum8seetM6HeFiMY"
 )
 
 var (

@@ -14,7 +14,15 @@ import (
 	"github.com/fatih/color"
 )
 
+var (
+	tables = map[string]string{} // tableName:id, Филиал:31131c67-1d74-4a85-8473-eaa5d10240e5
+	table  = models.Table{
+		Fields: []models.Field{},
+	}
+)
+
 func Reader() {
+
 	if constants.AppID == "" || constants.Token == "" {
 		log.Fatal("app_id or token is empty")
 	}
@@ -38,13 +46,6 @@ func Reader() {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
-	var (
-		tables = map[string]string{} // tableName:id, Филиал:31131c67-1d74-4a85-8473-eaa5d10240e5
-		table  = models.Table{
-			Fields: []models.Field{},
-		}
-	)
 
 	for scanner.Scan() {
 
