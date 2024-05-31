@@ -1,17 +1,15 @@
-CREATE TABLE "Справочник.Филиал.order_item" (
-    "guid" uuid PRIMARY KEY,
-    "Наименование.name" varchar,
-    "расположение.location" varchar,
-    "адрес.address" varchar,
-    "созданное время.created_time" timestamp
-);
-
-CREATE TABLE "Адрес.addresses" (
-    "guid" uuid PRIMARY KEY,
-    "имя.name" varchar,
-    "дом.home" varchar,
-
+CREATE TYPE "card_types" AS ENUM (
+  'Visa',
+  'Click',
+  'Mastercard',
+  'Humo'
 );
 
 
-ALTER TABLE "Филиал.order_item" ADD FOREIGN KEY ("guid") REFERENCES "Адрес.addresses" ("oorder_item_id");
+CREATE TABLE "Organization.Тип оплаты.payment_method" (
+  "guid" uuid PRIMARY KEY,
+  "Наименование.name" varchar,
+  "созданное время.created_time" date_time,
+  "Тип.type" card_types NOT NULL 
+);
+

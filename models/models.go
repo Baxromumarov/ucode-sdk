@@ -100,3 +100,34 @@ type RelationResponse struct {
 	} `json:"data"`
 	CustomMessage string `json:"custom_message"`
 }
+
+type MultiSelectRequestBody struct {
+	Attributes Attributes `json:"attributes"`
+	Default    string     `json:"default"`
+	Index      string     `json:"index"`
+	Label      string     `json:"label"`
+	Required   bool       `json:"required"`
+	Slug       string     `json:"slug"`
+	TableID    string     `json:"table_id"`
+	Type       string     `json:"type"`
+	ID         string     `json:"id"`
+	ShowLabel  bool       `json:"show_label"`
+}
+type Options struct {
+	ID    string `json:"id"`
+	Value string `json:"value"`
+	Icon  string `json:"icon"`
+	Color string `json:"color"`
+	Label string `json:"label"`
+}
+type Attributes struct {
+	Label          string    `json:"label"`
+	DefaultValue   string    `json:"defaultValue"`
+	LabelEn        string    `json:"label_en"`
+	HasColor       bool      `json:"has_color"`
+	IsMultiselect  bool      `json:"is_multiselect"`
+	Options        []Options `json:"options"`
+	NumberOfRounds any       `json:"number_of_rounds"`
+}
+
+

@@ -3,10 +3,11 @@ package structure
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+
 	"github.com/baxromumarov/ucode-sdk/constants"
 	"github.com/baxromumarov/ucode-sdk/helper"
 	"github.com/baxromumarov/ucode-sdk/models"
-	"log"
 )
 
 func CreateFields(table models.Table) {
@@ -18,7 +19,19 @@ func CreateFields(table models.Table) {
 		fmt.Println(table.ID)
 		fmt.Println(field.Type)
 		fmt.Println(constants.FieldTypes[field.Type])
-		createFieldBody := helper.FieldBody(field.Name, field.Slug, table.ID, constants.FieldTypes[field.Type])
+		createFieldBody := ""
+		if _, ok := constants.FieldTypes[field.Type]; !ok {
+			// if field.Type not in constants then this is multiselect type
+			reqBody := helper.MultiSelectBody(field.Name, table.ID, field.Slug, field.Type)
+			byteReq, err := json.Marshal(reqBody)
+			if err != nil {
+				log.Fatal("error while unmarshalling multi select body ", err)
+			}
+			createFieldBody = string(byteReq)
+
+		} else {
+			createFieldBody = helper.FieldBody(field.Name, field.Slug, table.ID, constants.FieldTypes[field.Type])
+		}
 		// fmt.Println(createFieldBody)
 		respField, err := helper.DoRequest(constants.UrlField+table.Slug, "POST", createFieldBody)
 		fmt.Println(">>>>>>>>", constants.UrlField+table.Slug)

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/baxromumarov/ucode-sdk/constants"
 	"io"
+	"log"
 	"net/http"
 	"regexp"
 	"time"
@@ -65,7 +66,6 @@ func RelationParser(line string) (from, to, labelEn, labelToEn string) {
 		fmt.Println("No matches found")
 		return
 	}
-
 	labelEn = matches[1]
 	from = matches[2]
 	labelToEn = matches[4]
@@ -76,4 +76,79 @@ func RelationParser(line string) (from, to, labelEn, labelToEn string) {
 	fmt.Printf("label_to_en = %s\n", labelToEn)
 	fmt.Printf("to = %s\n", to)
 	return from, to, labelEn, labelToEn
+}
+
+func EnumFieldParser(line string) {
+	// Regular expression to match and capture the field name, slug, and type
+	re := regexp.MustCompile(`"([^"]+)\.([^"]+)"\s+(\w+)(?:\s+NOT NULL)?`)
+
+	// Find the matches
+	matches := re.FindStringSubmatch(line)
+	if len(matches) != 4 {
+		fmt.Println("No matches found or invalid format")
+		return
+	}
+
+	fieldName := matches[1]
+	fieldSlug := matches[2]
+	fieldType := matches[3]
+
+	fmt.Printf("fieldName = %s\n", fieldName)
+	fmt.Printf("fieldSlug = %s\n", fieldSlug)
+	fmt.Printf("fieldType = %s\n", fieldType)
+
+}
+func EnumNameParser(line string) (multiSelect string) {
+	re := regexp.MustCompile(`'\s*([^']*)\s*'\s*,?`)
+
+	matches := re.FindStringSubmatch(line)
+	if len(matches) != 2 {
+		fmt.Println("No matches found or invalid format")
+		return multiSelect
+	}
+
+	multiSelect = matches[1]
+
+	return multiSelect
+}
+
+func EnumParser(line string) (enumName string) {
+	// Regular expression to match and capture the enum name
+	re := regexp.MustCompile(`CREATE TYPE "([^"]+)" AS ENUM`)
+
+	// Find the matches
+	matches := re.FindStringSubmatch(line)
+	if len(matches) != 2 {
+		fmt.Println("No matches found or invalid format")
+		return
+	}
+
+	enumName = matches[1]
+
+	return enumName
+}
+
+func TableParser(line string) (tableName, tableSlug, menuName string) {
+	re := regexp.MustCompile(`CREATE TABLE "(?:(\w+)\.)?(?:(\w+)\.)?([^\.]+)\.([^"]+)" \(`)
+
+	matches := re.FindStringSubmatch(line)
+	if len(matches) != 5 {
+		log.Fatal("No matches found or invalid format")
+	}
+
+	menuName = matches[1]
+	tableName = matches[2]
+	if tableName == "" {
+		tableName = matches[3]
+		tableSlug = matches[4]
+	} else {
+		tableName = matches[3]
+		tableSlug = matches[4]
+	}
+
+	fmt.Printf("menuName = %s\n", menuName)
+	fmt.Printf("tableName = %s\n", tableName)
+	fmt.Printf("tableSlug = %s\n", tableSlug)
+	fmt.Println("----------")
+	return tableName, tableSlug, menuName
 }

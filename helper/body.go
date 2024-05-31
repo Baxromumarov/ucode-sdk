@@ -3,6 +3,8 @@ package helper
 import (
 	"fmt"
 
+	"github.com/baxromumarov/ucode-sdk/constants"
+	"github.com/baxromumarov/ucode-sdk/models"
 	"github.com/google/uuid"
 )
 
@@ -50,35 +52,6 @@ func MenuBody(appId string, label string) string {
 		appId, // app_id
 		label, // label_en
 		label, // label
-	)
-}
-
-func MultiSelectBody(label, tableId, slug string) string {
-	return fmt.Sprintf(`
-		{
-		    "attributes": {
-		        "label": "",
-		        "defaultValue": "",
-		        "label_en": "Multi select",
-		        "has_color": false,
-		        "is_multiselect": false,
-		        "options": [],
-		        "number_of_rounds": null
-		    },
-		    "default": "",
-		    "index": "string",
-		    "label": "%s",
-		    "required": false,
-		    "slug": "%s",
-		    "table_id": "%s",
-		    "type": "MULTISELECT",
-		    "id": "%s",
-		    "show_label": true
-		}`,
-		label,               // label
-		slug,                // slug
-		tableId,             // table_id
-		uuid.New().String(), // id
 	)
 }
 
@@ -235,6 +208,41 @@ func RelationBody(labelEn, labelToEn, oneTable, manyTable string) RelationCreate
 	// 	manyTable,
 	// 	uuid.New().String(),
 	// )
+}
+func MultiSelectBody(label, tableId, slug, enumName string) models.MultiSelectRequestBody {
+	var options = []models.Options{}
+
+	for _, value := range constants.Enums[enumName] {
+		options = append(options, models.Options{
+			ID:    uuid.NewString(),
+			Value: value,
+			Icon:  "",
+			Color: "",
+			Label: value,
+		})
+	}
+
+	var result = models.MultiSelectRequestBody{
+		Attributes: models.Attributes{
+			Label:          "",
+			DefaultValue:   "",
+			LabelEn:        label,
+			HasColor:       false,
+			IsMultiselect:  true,
+			Options:        options,
+			NumberOfRounds: nil,
+		},
+		Default:   "",
+		Index:     "string",
+		Label:     label,
+		Required:  false,
+		Slug:      slug,
+		TableID:   tableId,
+		Type:      "MULTISELECT",
+		ID:        uuid.NewString(),
+		ShowLabel: true,
+	}
+	return result
 }
 
 type RelationCreateBody struct {
