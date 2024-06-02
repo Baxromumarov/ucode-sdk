@@ -2,6 +2,7 @@ package structure
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/fatih/color"
 
@@ -17,8 +18,13 @@ import (
 
 func CreateRelation(line string) {
 	from, to, labelEn, labelToEn := helper.RelationParser(line)
-
+	// fmt.Println(from)
+	// fmt.Println(to)
+	// fmt.Println(labelEn)
+	// fmt.Println(labelToEn)
 	createRelationBody := helper.RelationBody(labelEn, labelToEn, from, to)
+
+	fmt.Println("Create relation request body: ", createRelationBody)
 
 	req, err := json.Marshal(createRelationBody)
 	if err != nil {
@@ -32,11 +38,12 @@ func CreateRelation(line string) {
 	}
 
 	var relationResponse models.RelationResponse
+	fmt.Println(">>>>>>>>>>>>>234>>>>  ", string(respRelationCreate))
 	if err := json.Unmarshal(respRelationCreate, &relationResponse); err != nil {
 		log.Fatal("error while unmarshalling relation: ", err)
 		return
 	}
-	
+
 	color.Green("Relation successfully created")
 
 }

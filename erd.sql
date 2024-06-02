@@ -19,4 +19,4 @@ CREATE TABLE "Мошина.car" (
   "Модель.model" varchar
 );
 
-ALTER TABLE "Мошина.car" ADD FOREIGN KEY ("guid") REFERENCES "Организация.Клиент.customer" ("car_id");
+ALTER TABLE "Мошина.car" ADD FOREIGN KEY ("guid") REFERENCES "Клиент.customer" ("car_id");

@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-
+	// fmt.Println(helper.RelationParser(`ALTER TABLE "Мошина.car" ADD FOREIGN KEY ("guid") REFERENCES "Клиент.customer" ("car_id");`))
 	reader.Reader()
 }

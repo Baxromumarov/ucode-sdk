@@ -2,6 +2,7 @@ package structure
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/baxromumarov/ucode-sdk/constants"
@@ -37,7 +38,7 @@ func CreateFields(table models.Table) {
 		}
 
 		var responseField models.CreateResponse
-
+		fmt.Println(">>>>>>>>>>>> ", string(respField))
 		if err := json.Unmarshal(respField, &responseField); err != nil {
 			log.Fatal("error while unmarshalling responseField ", err)
 			return

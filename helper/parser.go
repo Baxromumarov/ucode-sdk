@@ -67,11 +67,12 @@ func RelationParser(line string) (from, to, labelEn, labelToEn string) {
 		log.Fatal("No matches found(RelationParser)")
 		return
 	}
-	labelEn = matches[1]
-	from = matches[2]
-	labelToEn = matches[4]
-	to = matches[5]
 
+	labelToEn = matches[1]
+	to = matches[2]
+	labelEn = matches[4]
+	from = matches[5]
+// fmt.Println(from, to, labelEn, labelToEn)
 	return from, to, labelEn, labelToEn
 }
 

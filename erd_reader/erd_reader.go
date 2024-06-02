@@ -36,7 +36,7 @@ func Reader() {
 		log.Fatal("error while getting directory ", err)
 	}
 
-	filePath := dir + "/erd.sql"
+	filePath := dir + "/wayll.sql"
 
 	file, err := os.Open(filePath)
 	if err != nil {

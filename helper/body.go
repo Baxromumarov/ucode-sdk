@@ -112,6 +112,8 @@ func TableToMenuBody(menuID, tableID, tableName string) string {
 }
 
 func RelationBody(labelEn, labelToEn, oneTable, manyTable string) models.RelationCreateBody {
+	fmt.Println(oneTable)
+	fmt.Println(manyTable)
 	return models.RelationCreateBody{
 		Attributes: models.FieldAttributes{
 			Math: models.Math{
@@ -136,7 +138,7 @@ func RelationBody(labelEn, labelToEn, oneTable, manyTable string) models.Relatio
 		Required:          false,
 		MultipleInsert:    false,
 		ShowLabel:         true,
-		ID:                uuid.NewString(),
+		ID:                uuid.New().String(),
 	}
 
 }
