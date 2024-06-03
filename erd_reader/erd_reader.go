@@ -51,7 +51,7 @@ func Reader() {
 
 		line := scanner.Text()
 
-		if strings.Contains(line, "guid") && strings.Contains(line, "uuid") {
+		if strings.Contains(line, "guid") || strings.Contains(line, "uuid") {
 			// this is checking for default table uuid
 			// we just skip this part
 			continue
