@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -19,5 +20,8 @@ func main() {
 	}
 	defer file.Close()
 
-	reader.Reader(file, "")
+	err = reader.Reader(file, "")
+	if err != nil {
+		fmt.Println("err: ", err)
+	}
 }

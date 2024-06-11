@@ -2,6 +2,7 @@ package structure
 
 import (
 	"bufio"
+	"errors"
 
 	"log"
 	"os"
@@ -21,18 +22,18 @@ var (
 	}
 )
 
-func Reader(file *os.File, token string) {
+func Reader(file *os.File, token string) error {
 	constants.Token = token
 
 	if constants.Token == "" {
 		log.Fatal("Token is empty")
+		return errors.New("token is empty")
 	}
 
 	defer func() {
 		color.Green("Congratulations!!! You did it. GO and drink. 😄")
 
 	}()
-	
 
 	scanner := bufio.NewScanner(file)
 
@@ -127,6 +128,7 @@ func Reader(file *os.File, token string) {
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal("Error reading file: ", err)
-		return
+		return errors.New("Error reading file: " + err.Error())
 	}
+	return nil
 }
