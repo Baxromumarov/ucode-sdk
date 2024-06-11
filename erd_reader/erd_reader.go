@@ -21,14 +21,15 @@ var (
 	}
 )
 
-func Reader(file *os.File) {
+func Reader(file *os.File, token string) {
+	constants.Token = token
 
 	if constants.AppID == "" || constants.Token == "" {
 		log.Fatal("app_id or token is empty")
 	}
 
 	defer func() {
-		color.Green("Congratulations, BAXROM!!! You did it. GO and drink. 😄")
+		color.Green("Congratulations!!! You did it. GO and drink. 😄")
 
 	}()
 	// dir, err := os.Getwd()

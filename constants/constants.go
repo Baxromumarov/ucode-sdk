@@ -8,10 +8,10 @@ const (
 	UrlField        = "https://api.admin.u-code.io/v2/fields/"
 	UrlRelation     = "https://api.admin.u-code.io/v2/relations/"
 	GetFields       = "https://api.admin.u-code.io/v1/field"
-	Token           = ""
 )
 
 var (
+	Token  = ""
 	MenuID = ""
 	Enums  = map[string][]string{}
 

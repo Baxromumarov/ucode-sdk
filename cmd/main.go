@@ -19,5 +19,5 @@ func main() {
 	}
 	defer file.Close()
 
-	reader.Reader(file)
+	reader.Reader(file, "")
 }
