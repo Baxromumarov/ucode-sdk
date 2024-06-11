@@ -21,7 +21,7 @@ var (
 	}
 )
 
-func Reader() {
+func Reader(file *os.File) {
 
 	if constants.AppID == "" || constants.Token == "" {
 		log.Fatal("app_id or token is empty")
@@ -31,19 +31,19 @@ func Reader() {
 		color.Green("Congratulations, BAXROM!!! You did it. GO and drink. 😄")
 
 	}()
-	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal("error while getting directory ", err)
-	}
+	// dir, err := os.Getwd()
+	// if err != nil {
+	// 	log.Fatal("error while getting directory ", err)
+	// }
 
-	filePath := dir + "/wayll.sql"
+	// filePath := dir + "./erd.sql"
 
-	file, err := os.Open(filePath)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	defer file.Close()
+	// file, err := os.Open(filePath)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// 	return
+	// }
+	// defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 
