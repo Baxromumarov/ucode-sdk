@@ -24,27 +24,15 @@ var (
 func Reader(file *os.File, token string) {
 	constants.Token = token
 
-	if constants.AppID == "" || constants.Token == "" {
-		log.Fatal("app_id or token is empty")
+	if constants.Token == "" {
+		log.Fatal("Token is empty")
 	}
 
 	defer func() {
 		color.Green("Congratulations!!! You did it. GO and drink. 😄")
 
 	}()
-	// dir, err := os.Getwd()
-	// if err != nil {
-	// 	log.Fatal("error while getting directory ", err)
-	// }
-
-	// filePath := dir + "./erd.sql"
-
-	// file, err := os.Open(filePath)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// 	return
-	// }
-	// defer file.Close()
+	
 
 	scanner := bufio.NewScanner(file)
 

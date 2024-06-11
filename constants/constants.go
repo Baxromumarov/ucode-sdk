@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	Token  = ""
+	Token  = "test"
 	MenuID = ""
 	Enums  = map[string][]string{}
 
