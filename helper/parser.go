@@ -78,10 +78,10 @@ func RelationParser(line string) (from, to, labelEn, labelToEn string) {
 
 func EnumNameParser(line string) (multiSelect string) {
 	re := regexp.MustCompile(`'\s*([^']*)\s*'\s*,?`)
-
+fmt.Println(">>>>>>>> ",line)
 	matches := re.FindStringSubmatch(line)
 	if len(matches) != 2 {
-		log.Fatal("No matches found or invalid format(EnumNameParser)")
+		// log.Fatal("No matches found or invalid format(EnumNameParser)")
 		return multiSelect
 	}
 

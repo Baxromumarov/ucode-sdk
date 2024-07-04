@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/baxromumarov/ucode-sdk/constants"
 	reader "github.com/baxromumarov/ucode-sdk/erd_reader"
 )
 
@@ -20,7 +21,7 @@ func main() {
 	}
 	defer file.Close()
 
-	err = reader.Reader(file, "")
+	err = reader.Reader(file, constants.Token)
 	if err != nil {
 		fmt.Println("err: ", err)
 	}

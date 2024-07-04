@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	Token  = "test"
+	Token  = ""
 	MenuID = ""
 	Enums  = map[string][]string{}
 
@@ -31,6 +31,7 @@ var (
 		"int":       "FLOAT",
 		"integer":   "FLOAT",
 		"checkbox":  "CHECKBOX",
+		"bool":      "CHECKBOX",
 		"switch":    "SWITCH",
 		"text[]":    "MULTISELECT",
 		"varchar[]": "MULTISELECT",

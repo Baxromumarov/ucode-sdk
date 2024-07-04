@@ -120,9 +120,9 @@ func Reader(file *os.File, token string) error {
 			}
 		}
 
-		if strings.Contains(line, "ALTER") {
-			break
-		}
+		// if strings.Contains(line, "ALTER") {
+		// 	break
+		// }
 
 	}
 
