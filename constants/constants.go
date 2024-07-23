@@ -3,11 +3,16 @@ package constants
 const (
 	AppID           = "c57eedc3-a954-4262-a0af-376c65b5a280"
 	PatternRelation = `\"([^"]+)\"`
-	UrlTable        = "https://api.admin.u-code.io/v1/table"
-	UrlMenu         = "https://api.admin.u-code.io/v2/menus"
-	UrlField        = "https://api.admin.u-code.io/v2/fields/"
-	UrlRelation     = "https://api.admin.u-code.io/v2/relations/"
-	GetFields       = "https://api.admin.u-code.io/v1/field"
+	// UrlTable        = "https://api.admin.u-code.io/v1/table"
+	// UrlMenu         = "https://api.admin.u-code.io/v2/menus"
+	// UrlField        = "https://api.admin.u-code.io/v2/fields/"
+	// UrlRelation     = "https://api.admin.u-code.io/v2/relations/"
+	// GetFields       = "https://api.admin.u-code.io/v1/field"
+	UrlTable    = "https://admin-api.ucode.run/v1/table"
+	UrlMenu     = "https://admin-api.ucode.run/v2/menus"
+	UrlField    = "https://admin-api.ucode.run/v2/fields/"
+	UrlRelation = "https://admin-api.ucode.run/v2/relations/"
+	GetFields   = "https://admin-api.ucode.run/v1/field"
 )
 
 var (

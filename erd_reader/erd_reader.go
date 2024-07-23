@@ -3,6 +3,7 @@ package structure
 import (
 	"bufio"
 	"errors"
+	"fmt"
 
 	"log"
 	"os"
@@ -56,7 +57,7 @@ func Reader(file *os.File, token string) error {
 
 			for scanner.Scan() {
 				line := scanner.Text()
-				if strings.Contains(line, ");") {
+				if strings.Contains(line, ");") && !strings.Contains(line, "ALTER") {
 					break
 				}
 
@@ -68,7 +69,7 @@ func Reader(file *os.File, token string) error {
 		}
 
 		if strings.Contains(line, "ALTER TABLE ") {
-
+			fmt.Println("COME OVER HERE")
 			structure.CreateRelation(line)
 			continue
 		}
