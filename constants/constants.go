@@ -8,15 +8,15 @@ const (
 	// UrlField        = "https://api.admin.u-code.io/v2/fields/"
 	// UrlRelation     = "https://api.admin.u-code.io/v2/relations/"
 	// GetFields       = "https://api.admin.u-code.io/v1/field"
-	UrlTable    = "https://admin-api.ucode.run/v1/table"
-	UrlMenu     = "https://admin-api.ucode.run/v2/menus"
-	UrlField    = "https://admin-api.ucode.run/v2/fields/"
-	UrlRelation = "https://admin-api.ucode.run/v2/relations/"
-	GetFields   = "https://admin-api.ucode.run/v1/field"
+	UrlTable    = "https://api.admin.u-code.io/v1/table"
+	UrlMenu     = "https://api.admin.u-code.io/v2/menus"
+	UrlField    = "https://api.admin.u-code.io/v2/fields/"
+	UrlRelation = "https://api.admin.u-code.io/v2/relations/"
+	GetFields   = "https://api.admin.u-code.io/v1/field"
 )
 
 var (
-	Token  = ""
+	Token  = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfcGxhdGZvcm1faWQiOiIiLCJjbGllbnRfdHlwZV9pZCI6IjljMzhiYWM2LTRmYjItNDM2My05YjUyLWU3NjdhNGEzYzQxNyIsImRhdGEiOiJhZGRpdGlvbmFsIGpzb24gZGF0YSIsImV4cCI6MTcyNDIyODExOCwiaWF0IjoxNzI0MTQxNzE4LCJpZCI6ImIxY2QwZTMzLTJmYTMtNGUxNi04YjM0LWIyYzZhMzU0YWU0NSIsImlwIjoiYWRkaXRpb25hbCBqc29uIGRhdGEiLCJsb2dpbl90YWJsZV9zbHVnIjoiXCJ1c2VyXCIiLCJwcm9qZWN0X2lkIjoiMjM2NGQ1MWUtMDdmNy00MDFhLTk0OGYtZTMyNzI5MTIxMzY1Iiwicm9sZV9pZCI6ImJmYTM5MDI5LThmYjctNDkwMi05NjdmLTRlZTM5MjA1MGI1ZCIsInRhYmxlcyI6W10sInVzZXJfaWQiOiIwNzU5ZWQxYS1jMjE2LTQwYzAtYTI5NC02MjMwMzMwM2MyYmIifQ.X7lY5vUtUfhpN_2ZQkzjth-mcpQrewvKTLtO69qU7IU"
 	MenuID = ""
 	Enums  = map[string][]string{}
 

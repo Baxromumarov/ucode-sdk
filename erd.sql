@@ -1,99 +1,155 @@
-CREATE TYPE "invoice_status" AS ENUM (
-  'In_process',
-  'Signed',
-  'Refused',
-  'Cancelled'
+CREATE TYPE "location_type" AS ENUM (
+  'country',
+  'city',
+  'region',
+  'district'
 );
 
-CREATE TYPE "counteragent_type" AS ENUM (
-  'Buyer',
-  'Seller'
+CREATE TYPE "gender" AS ENUM (
+  'male',
+  'female',
+  'other'
 );
 
-CREATE TYPE "invoice_type" AS ENUM (
-  'Standart',
-  'Additional',
-  'Expence',
-  'Free',
-  'Edited'
+CREATE TYPE "document_type" AS ENUM (
+  'ticket'
 );
 
-CREATE TYPE "contract_type" AS ENUM (
-  'Act',
-  'Contract',
-  'Proxy',
-  'Document'
+CREATE TYPE "flight_type" AS ENUM (
+  'direct',
+  'transfer'
 );
 
-CREATE TABLE "Организация.Контрагент.counteragent" (
+CREATE TYPE "room_type" AS ENUM (
+  'president',
+  'luxe',
+  'standard'
+);
+
+CREATE TABLE "Справочник.Расположение.location" (
   "guid" uuid,
-  "Тип.type" counteragent_type,
   "Имя.name" varchar,
-  "ИНН.inn" varchar,
-  "Адресс.address" varchar,
-  "Рег.Код плательщика НДС.vat_reg_code" varchar,
-  "Расчётный счёт.payment_account" varchar,
-  "ОКЭД.oked" varchar,
-  "МФО.mfo" varchar,
-  "Банк.bank" varchar,
-  "Директор.director" varchar,
-  "Бухгалтер.accountant" varchar
+  "Тип.type" location_type
 );
 
-CREATE TABLE "Финанс.Договор.contract" (
+CREATE TABLE "Авиакомпания.airline" (
   "guid" uuid,
-  "Номер.number" varchar,
-  "Дата.date" date,
-  "contract_type" contract_type,
-  "Статус.status" invoice_status,
-  "counteragent_id" uuid
+  "Имя.name" varchar,
+  "Icon.icon" varchar
 );
 
-CREATE TABLE "ТТН.ttn" (
+CREATE TABLE "Дополнительная услуга.extra_service" (
   "guid" uuid,
-  "Номер ТТН.number" varchar,
-  "Дата.date" date,
-  "contract_id" uuid,
-  "counteragent_id" uuid
+  "Имя.name" varchar,
+  "Icon.icon" varchar
 );
 
-CREATE TABLE "Счет Фактура.invoice" (
+CREATE TABLE "Билет.ticket" (
   "guid" uuid,
-  "Статус.status" invoice_status,
-  "Тип.type" invoice_type,
-  "Номер счет фактуры.number" varchar,
-  "Дата.date" date,
-  "provider_id" uuid,
-  "buyer_id" uuid,
-  "contract_id" uuid
+  "От.from_location" uuid,
+  "До.to_location" uuid,
+  "Цена.price" float,
+  "Продолжительность.flight_duration" varchar,
+  "from_airline" uuid,
+  "to_airline" uuid
 );
 
-CREATE TABLE "Справочник.Единицы измерения.unit" (
+CREATE TABLE "Способ оплаты.payment_method" (
   "guid" uuid,
-  "Наименование.name" varchar,
-  "Код.code" varchar
+  "Имя.name" varchar
 );
 
-CREATE TABLE "Каталог.Товары.items" (
+CREATE TABLE "Заказ.Заказ.order" (
   "guid" uuid,
-  "Наименоание.name" varchar,
-  "Идентификатор и наименование ИКПУ.external_id" varchar,
-  "unit_id" uuid,
-  "invoice_id" uuid
+  "Полное имя.buyer_full_name" varchar,
+  "Электронная почта.email" varchar,
+  "Номер телефона.phone_number" varchar,
+  "Фамилияsurname" varchar,
+  "Имя.name" varchar,
+  "Дата рождения.birth_date" datetime,
+  "Пол.gender" gender,
+  "Страна выдачи.country_of_issue" varchar,
+  "Тип документа.document_type" document_type,
+  "Номер документа.document_number" varchar,
+  "Дата выдачи документа.document_issued_date" datetime,
+  "Срок действия документа.document_vaidity_period" varchar,
+  "Почта.email_passenger" varchar,
+  "Номер телефона.phone_number_passenger" varchar,
+  "Цена.price" float,
+  "Количество пассажиров.passenger_count" float,
+  "ticket_id" uuid,
+  "hotel_id" uuid,
+  "hotel_room_id" uuid,
+  "Общая стоимость.total_price" float,
+  "payment_method_id" uuid,
+  "Тип рейса.flight_type" flight_type
 );
 
-ALTER TABLE "Договор.contract" ADD FOREIGN KEY ("counteragent_id") REFERENCES "Организация.Контрагент.counteragent" ("guid");
+CREATE TABLE "Организация.Отель.hotel" (
+  "guid" uuid,
+  "Расположение.location" varchar,
+  "Рейтинг.rating" float,
+  "Review.review" float,
+  "Имя.name" varchar,
+  "Адрес.address" varchar,
+  "Описание.description" text
+);
 
-ALTER TABLE "ТТН.ttn" ADD FOREIGN KEY ("contract_id") REFERENCES "Договор.contract" ("guid");
+CREATE TABLE "Гостиничный номер.hotel_room" (
+  "guid" uuid,
+  "Тип номера.room_type" room_type,
+  "Цена.price" float,
+  "hotel_id" uuid,
+  "Описание.description" text
+);
 
-ALTER TABLE "ТТН.ttn" ADD FOREIGN KEY ("counteragent_id") REFERENCES "Организация.Контрагент.counteragent" ("guid");
+CREATE TABLE "Категория обзора.review_category" (
+  "guid" uuid,
+  "Имя.name" varchar
+);
 
-ALTER TABLE "Счет Фактура.invoice" ADD FOREIGN KEY ("provider_id") REFERENCES "Организация.Контрагент.counteragent" ("guid");
+CREATE TABLE "Обзор.review" (
+  "guid" uuid,
+  "hotel_id" uuid,
+  "review_category_id" uuid,
+  "Рейтинг.rating" float
+);
 
-ALTER TABLE "Счет Фактура.invoice" ADD FOREIGN KEY ("buyer_id") REFERENCES "Организация.Контрагент.counteragent" ("guid");
+CREATE TABLE "Фотографии.photos" (
+  "guid" uuid,
+  "hotel_id" uuid,
+  "hotel_room_id" uuid
+);
 
-ALTER TABLE "Счет Фактура.invoice" ADD FOREIGN KEY ("contract_id") REFERENCES "Договор.contract" ("guid");
+CREATE TABLE "Клиент.Клиент.client" (
+  "guid" uuid,
+  "Полное имя.full_name" varchar,
+  "Электронная почта.email" varchar,
+  "Номер телефона.phone_number" varchar
+);
 
-ALTER TABLE "Товары.items" ADD FOREIGN KEY ("unit_id") REFERENCES "Единицы измерения.unit" ("guid");
+ALTER TABLE "Билет.ticket" ADD FOREIGN KEY ("from_location") REFERENCES "Расположение.location" ("guid");
 
-ALTER TABLE "Товары.items" ADD FOREIGN KEY ("invoice_id") REFERENCES "Счет Фактура.invoice" ("guid");
+ALTER TABLE "Билет.ticket" ADD FOREIGN KEY ("to_location") REFERENCES "Расположение.location" ("guid");
+
+ALTER TABLE "Билет.ticket" ADD FOREIGN KEY ("from_airline") REFERENCES "Авиакомпания.airline" ("guid");
+
+ALTER TABLE "Билет.ticket" ADD FOREIGN KEY ("to_airline") REFERENCES "Авиакомпания.airline" ("guid");
+
+ALTER TABLE "Заказ.order" ADD FOREIGN KEY ("ticket_id") REFERENCES "Билет.ticket" ("guid");
+
+ALTER TABLE "Заказ.order" ADD FOREIGN KEY ("hotel_id") REFERENCES "Отель.hotel" ("guid");
+
+ALTER TABLE "Заказ.order" ADD FOREIGN KEY ("hotel_room_id") REFERENCES "Гостиничный номер.hotel_room" ("guid");
+
+ALTER TABLE "Заказ.order" ADD FOREIGN KEY ("payment_method_id") REFERENCES "payment_method" ("guid");
+
+ALTER TABLE "Гостиничный номер.hotel_room" ADD FOREIGN KEY ("hotel_id") REFERENCES "Отель.hotel" ("guid");
+
+ALTER TABLE "Обзор.review" ADD FOREIGN KEY ("hotel_id") REFERENCES "Отель.hotel" ("guid");
+
+ALTER TABLE "Обзор.review" ADD FOREIGN KEY ("review_category_id") REFERENCES "Категория обзора.review_category" ("guid");
+
+ALTER TABLE "Фотографии.photos" ADD FOREIGN KEY ("hotel_id") REFERENCES "Отель.hotel" ("guid");
+
+ALTER TABLE "Фотографии.photos" ADD FOREIGN KEY ("hotel_room_id") REFERENCES "Гостиничный номер.hotel_room" ("guid");

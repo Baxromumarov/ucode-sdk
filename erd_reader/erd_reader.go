@@ -42,7 +42,7 @@ func Reader(file *os.File, token string) error {
 
 		line := scanner.Text()
 
-		if strings.Contains(line, "guid") || strings.Contains(line, "uuid") {
+		if strings.Contains(line, "guid") || strings.Contains(line, "uuid") && !strings.Contains(line, "ALTER") {
 			// this is checking for default table uuid
 			// we just skip this part
 			continue

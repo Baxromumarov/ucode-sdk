@@ -2,6 +2,7 @@ package structure
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/baxromumarov/ucode-sdk/constants"
@@ -13,12 +14,12 @@ import (
 func CreateMenu(menuName string) string {
 
 	createModuleBody := helper.MenuBody(constants.AppID, menuName)
-
+	fmt.Println("Creating menu...", createModuleBody)
 	respCreateModule, err := helper.DoRequest(constants.UrlMenu, "POST", createModuleBody)
 	if err != nil {
 		log.Fatal("error while creating menu", err)
 	}
-
+fmt.Println("respCreateModule", string(respCreateModule))
 	var responseModule models.CreateMenuResponse
 
 	if err := json.Unmarshal(respCreateModule, &responseModule); err != nil {
